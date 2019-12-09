@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import router from './Router/Routes.js';
+import router from './router/Routes.js';
 import config from '../config/config';
 
 // Set up the express server

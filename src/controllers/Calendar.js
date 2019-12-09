@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import romcal from 'romcal';
+import * as Utils from '../lib/Utils'
 
 class CalendarController {
   getAllCalendars(req, res) {
@@ -77,9 +78,9 @@ class CalendarController {
     }
 
     // Optional query parameters
-    if (req.query.day) options.query.day = parseInt(req.query.day, 10);
-    if (req.query.group) options.query.group = req.query.group;
-    if (req.query.title) options.query.title = req.query.title;
+    if (req.query.weekday) options.query.day = parseInt(req.query.weekday, 10);
+    if (req.query.group) options.query.group = _.camelCase(req.query.group.toLowerCase());
+    if (req.query.title) options.query.title = Utils.toUnderscoreCase(req.query.title.toLowerCase()).toUpperCase();
 
     // Do romcal request
     let dates = romcal.calendarFor(options);
