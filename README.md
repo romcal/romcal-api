@@ -52,7 +52,7 @@ Output an array of calendar names.
 ### List all supported locales
 #### `/api/v1/locales`
 
-Output an array of (actually mocked) calendar names.
+Output an array of (actually mocked) locales names.
 
 ---
 
