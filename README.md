@@ -26,7 +26,7 @@ To-do list:
 You can use tools like [Postman](https://www.getpostman.com/) to play with the API.
 
 ### Get calendar data
-#### `/api/v1/:calendar-type/:name/:locale/:year?/:month?/:day?`
+##### `/api/v1/:calendar-type/:name/:locale/:year?/:month?/:day?`
 
 | &nbsp;&nbsp;&nbsp;&nbsp;Parameters&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 |-----------------|----------------------------|
@@ -41,7 +41,7 @@ e.g.: `localhost:5000/api/v1/calendar/france/fr/2020/12/08`
 
 Additionally you can specify theses query strings:
 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parameters&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parameters&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 |-----------------|----------------------------|
 | `?weekday=[int]` | Filter the results on a specific weekday. `0` is Sunday, `6` is Saturday. For example `?weekday=0`. |
 | `?title=[string]` | Filter the results on a specific celebration title. The title need to be in kebab-case. For example `?title=patron-of-europe`. |
@@ -52,12 +52,12 @@ It is possible to query for dates against multiple criteria. For example `?day=0
 Output an `array` of celebrations ordered by date. If a group criteria is specified, it output first an `object` where keys represent the grouped data.
 
 ### List all available calendars
-#### `/api/v1//calendars`
+##### `/api/v1/calendars`
 
 Output an array of calendar names.
 
 ### List all supported locales
-#### `/api/v1/locales`
+##### `/api/v1/locales`
 
 Output an array of (actually mocked) locales names.
 
