@@ -29,10 +29,10 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "etienne-test": "^1.3.0-beta6",
     "express": "^4.17.1",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
-    "romcal": "file:~/Projects/romcal"
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.5",
