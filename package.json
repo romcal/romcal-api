@@ -10,6 +10,10 @@
     "start": "node_modules/.bin/nodemon --exec babel-node src/server.js --inspect",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romcal/romcal-api.git"
+  },
   "keywords": [
     "api",
     "roman",
