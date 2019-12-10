@@ -6,7 +6,7 @@ Powered by [romcal](https://github.com/romcal/romcal) and [express](https://gith
 
 ```
 $ npm install romcal-api
-$ npm run start
+$ npm start
 ```
 
 ## Work in progress
@@ -15,13 +15,15 @@ romcal-api is in the early stages of development, and not ready for production. 
 
 To-do list:
 + [ ] Add full API support for Calendars, Locales, Dates
-+ [ ] Makes romcal-api a standalone server, or available through a middleware for an existing express server.
++ [ ] Makes romcal-api a standalone express server, or available through a middleware for an existing express server.
 + [ ] Support Docker
 + [ ] Add tests
 + [ ] Add documentation
 + [ ] ...
 
 ## API
+
+You can use tools like [Postman](https://www.getpostman.com/) to play with the API.
 
 ### Get calendar data
 #### `/api/v1/:calendar-type/:name/:locale/:year?/:month?/:day?`
