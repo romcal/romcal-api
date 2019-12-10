@@ -28,19 +28,24 @@ You can use tools like [Postman](https://www.getpostman.com/) to play with the A
 ### Get calendar data
 #### `/api/v1/:calendar-type/:name/:locale/:year?/:month?/:day?`
 
-+ `calendar-type`: `calendar` or `liturgical`
-+ `name`: the name of the calendar, generally represented by the country name. If the name is not recognized romcal-api will throw an error.
-+ `locale`: the local to use to retrieve data.
-+ `year`: (optional) Retrieve the liturgical calendar for the specified year. Use the current year if not specified.
-+ `month`: (optional) Filter data to the specified month.
-+ `day`: (optional) Filter data to the specified day.
+| &nbsp;&nbsp;&nbsp;&nbsp;Parameters&nbsp;&nbsp;&nbsp;&nbsp; | Description |
+|-----------------|----------------------------|
+| `calendar-type` | `calendar` or `liturgical` |
+| `name` | the name of the calendar, generally represented by the country name. If the name is not recognized romcal-api will throw an error. |
+| `locale` | the local to use to retrieve data. |
+| `year` | (optional) Retrieve the liturgical calendar for the specified year. Use the current year if not specified. |
+| `month` | (optional) Filter data to the specified month. |
+| `day` | (optional) Filter data to the specified day. |
 
 e.g.: `localhost:5000/api/v1/calendar/france/fr/2020/12/08`
 
 Additionally you can specify theses query strings:
-+ `?weekday=[int]`: Filter the results on a specific weekday. `0` is Sunday, `6` is Saturday. For example `?weekday=0`.
-+ `?title=[string]`: Filter the results on a specific celebration title. The title need to be in kebab-case. For example `?title=patron-of-europe`.
-+ `?group=[string]`: Calendar dates can be grouped by various criteria upon invocation like so: `days`, `months`, `days-by-month`, `weeks-by-month`, `cycles`, `types`, `liturgical-seasons`, `liturgical-colors`, `psalter-weeks`.
+
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parameters&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
+|-----------------|----------------------------|
+| `?weekday=[int]` | Filter the results on a specific weekday. `0` is Sunday, `6` is Saturday. For example `?weekday=0`. |
+| `?title=[string]` | Filter the results on a specific celebration title. The title need to be in kebab-case. For example `?title=patron-of-europe`. |
+| `?group=[string]` | Calendar dates can be grouped by various criteria upon invocation like so: `days`, `months`, `days-by-month`, `weeks-by-month`, `cycles`, `types`, `liturgical-seasons`, `liturgical-colors`, `psalter-weeks`. |
 
 It is possible to query for dates against multiple criteria. For example `?day=0&group=liturgical-seasons`
 
