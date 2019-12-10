@@ -5,7 +5,9 @@ REST API for liturgical calendars in Catholic Roman rite (Western Church).
 Powered by [romcal](https://github.com/romcal/romcal) and [express](https://github.com/expressjs/express). This API is read-only, you can only get data from romcal.
 
 ```
-$ npm install romcal-api
+$ git clone https://github.com/romcal/romcal-api.git
+$ cd romcal-api
+$ npm install
 $ npm start
 ```
 
