@@ -11,7 +11,7 @@ $ npm install
 $ npm start
 ```
 
-## :construction: Work in progress :construction_worker:
+## Work in progress :construction:
 
 romcal-api is in the early stages of development, and not ready for production. The API and returned objects could also change a bit in future versions.
 
@@ -23,7 +23,7 @@ To-do list:
 + [ ] Add documentation
 + [ ] ...
 
-## :truck: API
+## API
 
 You can use tools like [Postman](https://www.getpostman.com/) to play with the API.
 
@@ -69,6 +69,6 @@ It is possible to query for dates against multiple criteria. For example `?day=0
 
 (and more to come)
 
-## :page_with_curl: License
+## License
 
 MIT
