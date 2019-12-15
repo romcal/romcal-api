@@ -13,11 +13,11 @@ $ npm start
 
 ## Work in progress
 
-romcal-api is in the early stages of development, and not ready for production. The API and returned object could also change a bit in future versions.
+romcal-api is in the early stages of development, and not ready for production. The API and returned objects could also change a bit in future versions.
 
 To-do list:
 + [ ] Add full API support for Calendars, Locales, Dates
-+ [ ] Makes romcal-api a standalone express server, or available through a middleware for an existing express server.
++ [ ] Makes romcal-api a standalone express server, or available through middleware for an existing express server.
 + [ ] Support Docker
 + [ ] Add tests
 + [ ] Add documentation
@@ -28,40 +28,42 @@ To-do list:
 You can use tools like [Postman](https://www.getpostman.com/) to play with the API.
 
 ### Get calendar data
-##### `/api/v1/:calendar-type/:name/:locale/:year?/:month?/:day?`
 
-| &nbsp;&nbsp;&nbsp;&nbsp;Parameters&nbsp;&nbsp;&nbsp;&nbsp; | Description |
-|-----------------|----------------------------|
-| `calendar-type` | `calendar` or `liturgical` |
-| `name` | the name of the calendar, generally represented by the country name. If the name is not recognized romcal-api will throw an error. |
-| `locale` | the local to use to retrieve data. |
-| `year` | (optional) Retrieve the liturgical calendar for the specified year. Use the current year if not specified. |
-| `month` | (optional) Filter data to the specified month. |
-| `day` | (optional) Filter data to the specified day. |
+Theses APIs Output an `array` of celebrations ordered by date.
 
-e.g.: `localhost:5000/api/v1/calendar/france/fr/2020/12/08`
+> `/api/v1/calendar/{name}/{locale}`<br>
+> Get calendar data based on the current year, from 1 January to 31 December.
 
-Additionally you can specify theses query strings:
+> `/api/v1/calendar/{name}/{locale}/{year}/{month}/{day}`<br>
+> Get calendar data for a specified period, or a specific date: `YYYY` , or `YYYY/MM`, or `YYYY/MM/DD`, between 1 January and 31 December.
 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parameters&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
-|-----------------|----------------------------|
-| `?weekday=[int]` | Filter the results on a specific weekday. `0` is Sunday, `6` is Saturday. For example `?weekday=0`. |
-| `?title=[string]` | Filter the results on a specific celebration title. The title need to be in kebab-case. For example `?title=patron-of-europe`. |
-| `?group=[string]` | Calendar dates can be grouped by various criteria upon invocation like so: `days`, `months`, `days-by-month`, `weeks-by-month`, `cycles`, `types`, `liturgical-seasons`, `liturgical-colors`, `psalter-weeks`. |
+> `/api/v1/liturgical-calendar/{name}/{locale}/{year}`<br>
+> Get calendar data for a specified `year` (in `YYYY` format), between the first day of Advent and the last day of Ordinary Time.<br>
+> For example, `2020` will return the liturgical calendar between the 29th of November **2020** (1st Sunday of Advent) and the 27th of November **2021** (Saturday of the 34th week of Ordinary Time).
+
+Other parameters:
+
++ `{name}`: the name of the calendar, generally represented by the country name. If the name is not recognized romcal-api will throw an error. For example: `france`.
++ `{locale}`: the local used to retrieve data. For example: `fr`.
+
+Additionally you can specify theses optional query strings:
+
++ `?weekday=[int]`: Filter the results on a specific weekday. `0` is Sunday, `6` is Saturday. For example `?weekday=0`.
++ `?title=[string]`: Filter the results on a specific celebration title. The title needs to be in kebab-case. For example `?title=patron-of-europe`.
++ `?group=[string]`: Calendar dates can be grouped by various criteria upon invocation like so: `days`, `months`, `days-by-month`, `weeks-by-month`, `cycles`, `types`, `liturgical-seasons`, `liturgical-colors`, `psalter-weeks`.
+When using this parameter, it output first an `object` where keys represent the grouped data.
 
 It is possible to query for dates against multiple criteria. For example `?day=0&group=liturgical-seasons`
 
-Output an `array` of celebrations ordered by date. If a group criteria is specified, it output first an `object` where keys represent the grouped data.
-
 ### List all available calendars
-##### `/api/v1/calendars`
 
-Output an array of calendar names.
+> `/api/v1/calendars` <br>
+> Output an array of calendar names.
 
 ### List all supported locales
-##### `/api/v1/locales`
 
-Output an array of (actually mocked) locales names.
+> `/api/v1/locales` <br>
+> Output an array of (actually mocked) locales names.
 
 ---
 
