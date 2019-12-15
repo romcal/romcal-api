@@ -11,7 +11,7 @@ $ npm install
 $ npm start
 ```
 
-## Work in progress
+## :construction: Work in progress :construction_worker:
 
 romcal-api is in the early stages of development, and not ready for production. The API and returned objects could also change a bit in future versions.
 
@@ -23,11 +23,11 @@ To-do list:
 + [ ] Add documentation
 + [ ] ...
 
-## API
+## :truck: API
 
 You can use tools like [Postman](https://www.getpostman.com/) to play with the API.
 
-### Get calendar data
+### :small_orange_diamond: Get calendar data
 
 Theses APIs Output an `array` of celebrations ordered by date.
 
@@ -55,12 +55,12 @@ When using this parameter, it output first an `object` where keys represent the 
 
 It is possible to query for dates against multiple criteria. For example `?day=0&group=liturgical-seasons`
 
-### List all available calendars
+### :small_orange_diamond: List all available calendars
 
 > `/api/v1/calendars` <br>
 > Output an array of calendar names.
 
-### List all supported locales
+### :small_orange_diamond: List all supported locales
 
 > `/api/v1/locales` <br>
 > Output an array of (actually mocked) locales names.
@@ -69,6 +69,6 @@ It is possible to query for dates against multiple criteria. For example `?day=0
 
 (and more to come)
 
-## License
+## :page_with_curl: License
 
 MIT
