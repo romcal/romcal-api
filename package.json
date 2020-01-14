@@ -1,6 +1,6 @@
 {
   "name": "romcal-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "REST API for liturgical calendars in Catholic Roman rite (Western Church). Powered by romcal and express.",
   "main": "index.js",
   "engines": {
@@ -34,19 +34,19 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "etienne-test": "^1.3.0-beta6",
+    "romcal": "^1.3.0-rc2",
     "express": "^4.17.1",
     "lodash": "^4.17.15",
     "moment": "^2.24.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.5",
-    "@babel/core": "^7.7.5",
-    "@babel/node": "^7.7.4",
-    "@babel/preset-env": "^7.7.5",
-    "eslint": "^6.7.2",
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "nodemon": "^2.0.1"
+    "eslint-plugin-import": "^2.20.0",
+    "nodemon": "^2.0.2"
   }
 }

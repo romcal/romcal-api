@@ -16,12 +16,12 @@ $ npm start
 romcal-api is in the early stages of development, and not ready for production. The API and returned objects could also change a bit in future versions.
 
 To-do list:
-+ [ ] Add full API support for Calendars, Locales, Dates
-+ [ ] Makes romcal-api a standalone express server, or available through middleware for an existing express server.
-+ [ ] Support Docker
-+ [ ] Add tests
-+ [ ] Add documentation
-+ [ ] ...
+- [ ] Add full API support for Calendars, Locales, Dates
+- [ ] Makes romcal-api a standalone express server, or available through middleware for an existing express server.
+- [ ] Support Docker
+- [ ] Add tests
+- [ ] Add documentation
+- [ ] ...
 
 ## API
 
@@ -43,14 +43,14 @@ Theses APIs Output an `array` of celebrations ordered by date.
 
 Other parameters:
 
-+ `{name}`: the name of the calendar, generally represented by the country name. If the name is not recognized romcal-api will throw an error. For example: `france`.
-+ `{locale}`: the local used to retrieve data. For example: `fr`.
+- `{name}`: the name of the calendar, generally represented by the country name. If the name is not recognized romcal-api will throw an error. For example: `france`.
+- `{locale}`: the local used to retrieve data. For example: `fr`.
 
 Additionally you can specify theses optional query strings:
 
-+ `?weekday=[int]`: Filter the results on a specific weekday. `0` is Sunday, `6` is Saturday. For example `?weekday=0`.
-+ `?title=[string]`: Filter the results on a specific celebration title. The title needs to be in kebab-case. For example `?title=patron-of-europe`.
-+ `?group=[string]`: Calendar dates can be grouped by various criteria upon invocation like so: `days`, `months`, `days-by-month`, `weeks-by-month`, `cycles`, `types`, `liturgical-seasons`, `liturgical-colors`, `psalter-weeks`.
+- `?weekday=[int]`: Filter the results on a specific weekday. `0` is Sunday, `6` is Saturday. For example `?weekday=0`.
+- `?title=[string]`: Filter the results on a specific celebration title. The title needs to be in kebab-case. For example `?title=patron-of-europe`.
+- `?group=[string]`: Calendar dates can be grouped by various criteria upon invocation like so: `days`, `months`, `days-by-month`, `weeks-by-month`, `cycles`, `types`, `liturgical-seasons`, `liturgical-colors`, `psalter-weeks`.
 When using this parameter, it output first an `object` where keys represent the grouped data.
 
 It is possible to query for dates against multiple criteria. For example `?day=0&group=liturgical-seasons`
@@ -68,6 +68,11 @@ It is possible to query for dates against multiple criteria. For example `?day=0
 ---
 
 (and more to come)
+
+## History
+
+- 0.0.2 Update node dependencies and use the last version of romcal 1.3.0
+- 0.0.1 Initial API setup and documentation
 
 ## License
 
