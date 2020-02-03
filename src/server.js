@@ -1,16 +1,11 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import router from './router/Routes.js';
-import config from '../config/config';
+const express = require('express');
+const config = require('../config/config');
+const romcalAPI = require('./express-middleware');
 
-// Set up the express server
-const server = express();
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: false }));
-server.use(router);
+// Set up the express middleware API
+const app = express();
+app.use(romcalAPI);
 
-// Let's go
-const PORT = config.port;
-server.listen(PORT, () => {
-  console.log(`server running on port ${PORT}`);
+app.listen(config.port, () => {
+  console.log(`romcal API running on port ${config.port}`);
 });

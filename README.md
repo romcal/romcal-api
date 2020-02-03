@@ -2,14 +2,106 @@
 
 REST API for liturgical calendars in Catholic Roman rite (Western Church).
 
-Powered by [romcal](https://github.com/romcal/romcal) and [express](https://github.com/expressjs/express). This API is read-only, you can only get data from romcal.
+Powered by [romcal](https://github.com/romcal/romcal). This API is read-only, you can only get data from romcal.
+
+## Usage
+
+### As an express middleware
+
+Actually only Express is supported. More frameworks might be supported in the future.
 
 ```
-$ git clone https://github.com/romcal/romcal-api.git
-$ cd romcal-api
-$ npm install
-$ npm start
+$ npm install romcal-api
+$ npm install express
 ```
+
+```javascript
+// index.js
+
+const express = require('express');
+const romcalMiddleware = require('romcal-api').middleware;
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(romcalMiddleware);
+
+app.listen(PORT, () => {
+  console.log(`romcal API running on port ${PORT}`);
+});
+```
+
+```
+$ node index.js
+```
+
+### Through the serverless framework
+
+Actually only AWS Lambda is supported. More providers might be added in the future.
+
+To get started, you'll need the [Serverless Framework](https://serverless.com/framework/docs/providers/aws/guide/quick-start/) installed. You'll also need your environment configured with [AWS credentials](https://serverless.com/framework/docs/providers/aws/guide/credentials/).
+
+First, create a new working directory for your romcal API project:
+```
+# Create a new Serverless service/project
+$ serverless
+
+# Change into the newly created directory
+$ cd my-romcal-api
+```
+
+Then, install romcal-api:
+```
+$ npm install romcal-api
+```
+
+With our libraries installed, let's add our application code in the `handler.js`:
+```javascript
+// handler.js
+
+const romcalAPI = require('romcal-api');
+module.exports.romcalAPI = romcalAPI.handler;
+```
+
+To get this application deployed, let's define the provider settings and the romcal functions in the `serverless.yml`:
+```yaml
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  app:
+    handler: handler.romcalAPI
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+
+  # Optional: Each function instance below will have the same code, but they'll be segmented for metrics purposes.
+  getCalendar:
+    handler: handler.romcalAPI
+    events:
+      - http: 'GET /calendar/{proxy+}'
+  getLiturgicalCalendar:
+    handler: handler.romcalAPI
+    events:
+      - http: 'GET /liturgical-calendar/{proxy+}'
+  getCalendars:
+    handler: handler.romcalAPI
+    events:
+      - http: 'GET /calendars'
+  getLocales:
+    handler: handler.romcalAPI
+    events:
+      - http: 'GET /locales'
+```
+
+Finally, let's deploy your romcal-api function:
+```
+$ sls deploy
+```
+After a minute, your application is live! The console will show your endpoints in the Service Information section. You can navigate to that route in your browser.
+
+To get help, you will find a lot more information and support about serverless, over internet and particularly on the [serverless.com](https://serverless.com/) website.
 
 ## Work in progress :construction:
 
@@ -17,7 +109,6 @@ romcal-api is in the early stages of development, and not ready for production. 
 
 To-do list:
 - [ ] Add full API support for Calendars, Locales, Dates
-- [ ] Makes romcal-api a standalone express server, or available through middleware for an existing express server.
 - [ ] Support Docker
 - [ ] Add tests
 - [ ] Add documentation
@@ -53,7 +144,7 @@ Additionally you can specify theses optional query strings:
 - `?group=[string]`: Calendar dates can be grouped by various criteria upon invocation like so: `days`, `months`, `days-by-month`, `weeks-by-month`, `cycles`, `types`, `liturgical-seasons`, `liturgical-colors`, `psalter-weeks`.
 When using this parameter, it output first an `object` where keys represent the grouped data.
 
-It is possible to query for dates against multiple criteria. For example `?day=0&group=liturgical-seasons`
+It is possible to query for dates against multiple criteria. For example `?weekday=0&group=liturgical-seasons`
 
 ### :small_orange_diamond: List all available calendars
 
@@ -71,6 +162,7 @@ It is possible to query for dates against multiple criteria. For example `?day=0
 
 ## History
 
+- 0.0.3 Integrate the serverless framework into romcal-api: romcal-api is now available as a wrapped Express middleware or a FaaS/Lambda.
 - 0.0.2 Update node dependencies and use the last version of romcal 1.3.0
 - 0.0.1 Initial API setup and documentation
 

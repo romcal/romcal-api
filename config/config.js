@@ -1,6 +1,7 @@
 const config = {
-	baseUrl: '/api/v1',
-	port: 5000
+	baseUrl: '',
+	port: process.env.PORT || 3000
 };
 
-export default config;
+//export default config;
+module.exports = config;

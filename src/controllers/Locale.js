@@ -1,7 +1,3 @@
-import _ from 'lodash';
-import moment from 'moment';
-import romcal from 'romcal';
-
 class LocaleController {
   getAllLocales(req, res) {
     const locales = [
@@ -18,4 +14,5 @@ class LocaleController {
 }
 
 const localeController = new LocaleController();
-export default localeController;
+
+module.exports = localeController;

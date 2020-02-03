@@ -5,6 +5,4 @@ const toUnderscoreCase = (s) => {
     .replace(/\-/g, '_');
 };
 
-export {
-  toUnderscoreCase
-};
+module.exports.toUnderscoreCase = toUnderscoreCase;

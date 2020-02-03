@@ -1,11 +1,11 @@
-import _ from 'lodash';
-import moment from 'moment';
-import romcal from 'romcal';
-import * as Utils from '../lib/Utils'
+const _ = require('lodash');
+const moment = require('moment');
+const romcal = require('romcal');
+const Utils = require('../lib/utils');
 
 class CalendarController {
   getAllCalendars(req, res) {
-    return res.status(200).send(romcal.countries);
+    return res.status(200).send(romcal.Countries);
   }
 
   getCalendar(req, res) {
@@ -25,7 +25,7 @@ class CalendarController {
     if (req.params.calendar === 'liturgical-calendar') options.type = 'liturgical';
 
     // Country calendar
-    if (romcal.countries.indexOf(req.params.country) === -1) {
+    if (romcal.Countries.indexOf(req.params.country) === -1) {
       return res.status(403).send({
         error: '403',
         message: `Country calendar not supported: ${req.params.country}`,
@@ -103,4 +103,5 @@ class CalendarController {
 }
 
 const calendarController = new CalendarController();
-export default calendarController;
+
+module.exports = calendarController;

@@ -1,7 +1,7 @@
-import express from 'express';
-import config from '../../config/config';
-import CalendarController from '../controllers/Calendar';
-import LocaleController from '../controllers/Locale';
+const express = require('express');
+const config = require('../../config/config');
+const CalendarController = require('../controllers/calendar');
+const LocaleController = require('../controllers/locale');
 
 const router = express.Router();
 
@@ -10,4 +10,4 @@ router.get(`${config.baseUrl}/:calendar/:country/:locale/:year?/:month?/:day?`, 
 router.get(`${config.baseUrl}/calendars`, CalendarController.getAllCalendars);
 router.get(`${config.baseUrl}/locales`, LocaleController.getAllLocales);
 
-export default router;
+module.exports = router;

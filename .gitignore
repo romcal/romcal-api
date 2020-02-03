@@ -1,3 +1,11 @@
+# package directories and files
+node_modules
+jspm_packages
 npm-debug.log
-node_modules/
+dist
+
+# Serverless directories
+.serverless
+
+# Others
 **.DS_Store**
