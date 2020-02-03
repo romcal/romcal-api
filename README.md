@@ -152,7 +152,7 @@ It is possible to query for dates against multiple criteria. For example `?weekd
 ### <a name="getLocales"></a>:small_orange_diamond: List all supported locales
 
 > `/api/v1/locales` <br>
-> Output an array of (actually mocked) locales names.
+> Output an array of locales keys.
 
 ---
 
@@ -171,6 +171,7 @@ To-do list:
 
 ## History
 
+- 0.0.5 The access point to list all supported locales now output real data from romcal.
 - 0.0.4 Add `.npmignore` file, and rename correctly some files to lowercase.
 - 0.0.3 Integrate the serverless framework into romcal-api: romcal-api is now available as a wrapped Express middleware or a FaaS/Lambda.
 - 0.0.2 Update node dependencies and use the last version of romcal 1.3.0
