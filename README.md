@@ -4,9 +4,18 @@ REST API for liturgical calendars in Catholic Roman rite (Western Church).
 
 Powered by [romcal](https://github.com/romcal/romcal). This API is read-only, you can only get data from romcal.
 
+- [Usage](#usage):
+  - [As an express middleware](#express-middleware)
+  - [Through the serverless framework](#serverless)
+- [API](#api):
+  - [Get calendar data](#getCalendar)
+  - [List all available calendars](#getCalendar)
+  - [List all supported locales](#getCalendar)
+- [Work in progress](#wip)
+
 ## Usage
 
-### As an express middleware
+### <a name="express-middleware"></a> As an express middleware
 
 Actually only Express is supported. More frameworks might be supported in the future.
 
@@ -35,7 +44,7 @@ app.listen(PORT, () => {
 $ node index.js
 ```
 
-### Through the serverless framework
+### <a name="serverless"></a> Through the serverless framework
 
 Actually only AWS Lambda is supported. More providers might be added in the future.
 
@@ -103,22 +112,11 @@ After a minute, your application is live! The console will show your endpoints i
 
 To get help, you will find a lot more information and support about serverless, over internet and particularly on the [serverless.com](https://serverless.com/) website.
 
-## Work in progress :construction:
-
-romcal-api is in the early stages of development, and not ready for production. The API and returned objects could also change a bit in future versions.
-
-To-do list:
-- [ ] Add full API support for Calendars, Locales, Dates
-- [ ] Support Docker
-- [ ] Add tests
-- [ ] Add documentation
-- [ ] ...
-
 ## API
 
 You can use tools like [Postman](https://www.getpostman.com/) to play with the API.
 
-### :small_orange_diamond: Get calendar data
+### <a name="getCalendar"></a>:small_orange_diamond: Get calendar data
 
 Theses APIs Output an `array` of celebrations ordered by date.
 
@@ -146,12 +144,12 @@ When using this parameter, it output first an `object` where keys represent the 
 
 It is possible to query for dates against multiple criteria. For example `?weekday=0&group=liturgical-seasons`
 
-### :small_orange_diamond: List all available calendars
+### <a name="getCalendars"></a>:small_orange_diamond: List all available calendars
 
 > `/api/v1/calendars` <br>
 > Output an array of calendar names.
 
-### :small_orange_diamond: List all supported locales
+### <a name="getLocales"></a>:small_orange_diamond: List all supported locales
 
 > `/api/v1/locales` <br>
 > Output an array of (actually mocked) locales names.
@@ -159,6 +157,17 @@ It is possible to query for dates against multiple criteria. For example `?weekd
 ---
 
 (and more to come)
+
+## <a name="wip"></a>Work in progress :construction:
+
+romcal-api is in the early stages of development, and not ready for production. The API and returned objects could also change a bit in future versions.
+
+To-do list:
+- [ ] Add full API support for Calendars, Locales, Dates
+- [ ] Support Docker
+- [ ] Add tests
+- [ ] Add documentation
+- [ ] ...
 
 ## History
 
