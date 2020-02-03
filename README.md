@@ -9,8 +9,8 @@ Powered by [romcal](https://github.com/romcal/romcal). This API is read-only, yo
   - [Through the serverless framework](#serverless)
 - [API](#api):
   - [Get calendar data](#getCalendar)
-  - [List all available calendars](#getCalendar)
-  - [List all supported locales](#getCalendar)
+  - [List all available calendars](#getCalendars)
+  - [List all supported locales](#getLocales)
 - [Work in progress](#wip)
 
 ## Usage
