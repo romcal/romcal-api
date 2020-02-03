@@ -162,6 +162,7 @@ It is possible to query for dates against multiple criteria. For example `?weekd
 
 ## History
 
+- 0.0.4 Add `.npmignore` file, and rename correctly some files to lowercase.
 - 0.0.3 Integrate the serverless framework into romcal-api: romcal-api is now available as a wrapped Express middleware or a FaaS/Lambda.
 - 0.0.2 Update node dependencies and use the last version of romcal 1.3.0
 - 0.0.1 Initial API setup and documentation

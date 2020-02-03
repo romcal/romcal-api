@@ -1,6 +1,6 @@
 {
   "name": "romcal-api",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "REST API for liturgical calendars in Catholic Roman rite (Western Church). Powered by romcal.",
   "main": "src/index.js",
   "engines": {
