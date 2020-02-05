@@ -6,6 +6,7 @@ dist
 
 # Serverless directories
 .serverless
+dist
 
 # Webpack directories
 .webpack

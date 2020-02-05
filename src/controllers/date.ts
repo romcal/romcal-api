@@ -1,3 +1,3 @@
-export default class DateController {
+export default class Date {
 
 }

@@ -1,2 +1,12 @@
 # Serverless directories
 .serverless
+
+# Sources
+config
+src
+.editorconfig
+.eslintcache
+.eslintrc.js
+index.ts
+tsconfig.json
+webpack.config.js

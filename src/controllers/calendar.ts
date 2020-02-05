@@ -1,101 +1,189 @@
-import _ from 'lodash';
+import * as _ from 'lodash';
 import * as moment from 'moment';
 import * as romcal from 'romcal';
 import Utils from '../lib/utils';
 
-export default class CalendarController {
+export default class Calendar {
+  private static readonly dateRe = /^(?:(?<alias>yesterday|today|tomorrow)|(?:(?<year>\d{4})(?:-(?<key>[a-z-]+)|-(?:(?<month>\d{1,2})(?:-(?<day>\d{1,2}))?))?))$/i;
+
+  private static hasDateParams(date: string): boolean {
+    return !!Calendar.dateRe.exec(date);
+  }
+
+  private static dateParams(date: string): Object {
+    const params = Calendar.dateRe.exec(date.toLowerCase());
+    return params ? params.groups : {};
+  }
+
+  private static getBeginningLiturgicalYear(date: Date | moment.Moment): number {
+    let year = moment(date).year();
+    const day = moment(date);
+    const firstSundayOfAdvent = romcal.Dates.firstSundayOfAdvent(year);
+    const isTodayBeforeAdvent = firstSundayOfAdvent.isSameOrAfter(day);
+    year = isTodayBeforeAdvent ? year - 1 : year;
+    return year;
+  }
+
   static getAllCalendars(_req, res) {
     return res.status(200).send(romcal.Countries);
   }
 
   static getCalendar(req, res) {
-    const options: any = {
+    const params = {
+      ...req.params,
+      ...req.query,
+      ...Calendar.dateParams(req.params.date),
+    };
+    const config: any = {
       type: 'calendar',
       query: {},
     };
-    let day;
 
     // Calendar Type
-    if (req.params.calendar !== 'calendar' && req.params.calendar !== 'liturgical-calendar') {
-      return res.status(403).send({
-        error: '403',
-        message: 'Calendar type must be `calendar` or `liturgical-calendar`.',
-      });
-    }
-    if (req.params.calendar === 'liturgical-calendar') options.type = 'liturgical';
+    if (params.calendar === 'liturgical') config.type = 'liturgical';
 
     // Country calendar
-    if (romcal.Countries.indexOf(req.params.country) === -1) {
-      return res.status(403).send({
-        error: '403',
-        message: `Country calendar not supported: ${req.params.country}`,
+
+    if (romcal.Countries.indexOf(params.country) === -1) {
+      if (!params.country) {
+        return res.status(404).send({
+          error: '422',
+          message: 'Country calendar is required. For example: /calendar/france/fr',
+        });
+      }
+      return res.status(404).send({
+        error: '404',
+        message: `Country calendar not found: ${params.country}`,
+      });
+    }
+
+    // Country calendar
+    if (!params.locale) {
+      return res.status(404).send({
+        error: '422',
+        message: 'Locale is required. For example: /calendar/france/fr',
       });
     }
 
     // Locale
-    options.locale = req.params.locale;
+    config.locale = params.locale;
 
-    // Optional Year
-    if (req.params.year) {
-      if (!/^\d{4}$/.test(req.params.year)) {
-        return res.status(403).send({
-          error: '403',
-          message: 'Year need to be in YYYY format.',
-        });
-      }
-      options.year = parseInt(req.params.year, 10);
+    // Date: year not correctly defined
+    if (params.date && !Calendar.hasDateParams(params.date)) {
+      return res.status(422).send({
+        error: '422',
+        message: 'Date format is incorrect.',
+      });
     }
 
-    // Optional Month
-    if (req.params.month) {
-      if (!/^\d{1,2}$/.test(req.params.month)) {
-        return res.status(403).send({
-          error: '403',
-          message: 'Month need to be in M or MM format.',
-        });
-      }
-      const month = parseInt(req.params.month, 10);
-      if (month < 0 || month > 12) {
-        return res.status(403).send({
-          error: '403',
-          message: 'Month need to be between 1 and 12.',
-        });
-      }
-      options.query.month = month - 1;
+    // Date: year not defined -> define the current year
+    if (!params.date && !Calendar.hasDateParams(params.date)) {
+      config.year = new Date().getFullYear();
+
+      // Liturgical Calendar:
+      // If today is before the first Sunday of Advent (within the current civil year),
+      // then the reference liturgical year was starting last year
+      const today = new Date();
+      config.year = config.type === 'liturgical' ? Calendar.getBeginningLiturgicalYear(today) : config.year;
     }
 
-    // Optional day
-    if (req.params.day) {
-      if (!/^\d{1,2}$/.test(req.params.day)) {
-        return res.status(403).send({
-          error: '403',
-          message: 'Day need to be in D or DD format.',
+    // Dates: yesterday, today and tomorrow
+    if (['yesterday', 'today', 'tomorrow'].indexOf(params.alias) > -1) {
+      let day = new Date();
+      if (params.alias === 'yesterday') day = new Date(day.setDate(day.getDate() - 1));
+      if (params.alias === 'tomorrow') day = new Date(day.setDate(day.getDate() + 1));
+      config.year = config.type === 'liturgical' ? Calendar.getBeginningLiturgicalYear(day) : day.getUTCFullYear();
+      config.month = day.getUTCMonth();
+      config.day = day.getUTCDate();
+    }
+
+    // Dates: year, month, day
+    if (params.year) config.year = parseInt(params.year, 10);
+    if (params.month) config.query.month = parseInt(params.month, 10) - 1;
+    if (params.day) config.day = parseInt(params.day, 10);
+
+    if (params.key) {
+      // Dates: by seasons
+      const seasons = [...Object.keys(romcal.Seasons), 'ordinaryTime'].map((k) => _.kebabCase(k));
+      if (params.key && seasons.indexOf(params.key) > -1) {
+        config.season = params.key;
+
+        if (config.type === 'liturgical') {
+          const criteria = config.season === 'ordinary-time' ? 'early-ordinary-time' : config.season;
+          const day = romcal.Seasons[_.camelCase(criteria)](config.year)[0];
+          config.year = Calendar.getBeginningLiturgicalYear(day);
+        }
+
+        // Christmastide stands between two years, so to get the entire season,
+        // force the calendar type to `liturgical`
+        if (config.season === 'christmastide' && config.type !== 'liturgical') {
+          config.type = 'liturgical';
+        }
+      }
+
+      // Dates: lookup celebration by its key
+      const dates = Object.keys(romcal.Dates).map((k) => _.kebabCase(k));
+      if (params.key && dates.indexOf(params.key) > -1) {
+        config.celebration = params.key;
+      }
+
+      if (!config.season && !config.celebration) {
+        return res.status(404).send({
+          error: '404',
+          message: `No dates found for: ${params.date}`,
         });
       }
-      const m = (options.query.month + 1).toString().padStart(2, '0');
-      const d = req.params.day.toString().padStart(2, '0');
-      day = moment.utc(options.year + m + d);
     }
 
     // Optional query parameters
-    const q = req.query;
-    if (q.weekday) options.query.day = parseInt(q.weekday, 10);
-    if (q.group) options.query.group = _.camelCase(q.group.toLowerCase());
-    if (q.title) options.query.title = Utils.toUnderscoreCase(q.title.toLowerCase()).toUpperCase();
+    if (params.weekday) config.query.day = parseInt(params.weekday, 10);
+    if (params.group) config.query.group = _.camelCase(params.group.toLowerCase());
+    if (params.title) config.query.title = Utils.toUnderscoreCase(params.title.toLowerCase()).toUpperCase();
 
     // Do romcal request
-    let dates = romcal.calendarFor(options);
+    let dates = romcal.calendarFor(config);
 
     // Find the optional day from the results (romcal doesn't support lookup for a specific day)
-    if (req.params.day && _.isInteger(parseInt(req.params.day, 10))) {
-      if (options.query.group) {
+    if (config.day) {
+      const day = new Date(Date.UTC(config.year, config.month, config.day));
+
+      if (config.query.group) {
         // For grouped data, we need to filter in each groups
         // And only return groups that have items
         dates = _(dates)
-          .map((group, key) => ({ [key]: _.filter(group, (d) => moment(d.moment).isSame(day)) }))
+          .map((group, key) => ({ [key]: _.filter(group, (d) => moment(d.moment).isSame(day, 'day')) }))
           .filter((group) => group[Object.keys(group)[0]].length);
       } else {
-        dates = _.filter(dates, (d) => moment(d.moment).isSame(day));
+        dates = _.filter(dates, (d) => moment(d.moment).isSame(day, 'day'));
+      }
+    }
+
+    // Filter by season key name
+    if (config.season) {
+      let criteria = [config.season];
+      if (config.season === 'ordinary-time') criteria = ['early-ordinary-time', 'later-ordinary-time'];
+
+      if (config.group) {
+        // For grouped data, we need to filter in each groups
+        // And only return groups that have items
+        dates = _(dates)
+          .map((group, key) => ({ [key]: _.filter(group, (d) => criteria.indexOf(_.kebabCase(d.data.season.key)) > -1) }))
+          .filter((group) => group[Object.keys(group)[0]].length);
+      } else {
+        dates = _.filter(dates, (d) => criteria.indexOf(_.kebabCase(d.data.season.key)) > -1);
+      }
+    }
+
+    // Filter by celebration key name
+    if (config.celebration) {
+      if (config.group) {
+        // For grouped data, we need to filter in each groups
+        // And only return groups that have items
+        dates = _(dates)
+          .map((group, key) => ({ [key]: _.filter(group, (d) => d.key === config.celebration) }))
+          .filter((group) => group[Object.keys(group)[0]].length);
+      } else {
+        dates = _.filter(dates, (d) => d.key === config.celebration);
       }
     }
 

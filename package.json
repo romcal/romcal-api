@@ -1,13 +1,14 @@
 {
   "name": "romcal-api",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "REST API for liturgical calendars in Catholic Roman rite (Western Church). Powered by romcal.",
-  "main": "src/index.ts",
+  "main": "dist/service/index.js",
   "engines": {
     "node": ">=8.0.0"
   },
   "scripts": {
     "start": "node_modules/.bin/nodemon src/server.ts --inspect",
+    "build": "webpack-cli --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -54,8 +55,10 @@
     "serverless-offline": "^5.12.1",
     "serverless-webpack": "^5.3.1",
     "ts-loader": "^6.2.1",
+    "ts-node": "^8.6.2",
     "typescript": "^3.7.5",
     "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
     "webpack-node-externals": "^1.7.2"
   }
 }

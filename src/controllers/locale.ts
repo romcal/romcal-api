@@ -1,6 +1,6 @@
 import * as romcal from 'romcal';
 
-export default class LocaleController {
+export default class Locale {
   static getAllLocales(_req, res) {
     const locales = Object
       .keys(romcal.Locales)
