@@ -210,7 +210,8 @@ To-do list (non-exclusive):
 
 ## History
 
-- 0.0.6 Start a calendar endpoint refactor. Update build files. Update this readme.md
+- 0.0.7 Update build files. Update this readme.md
+- 0.0.6 Start a calendar endpoint refactor.
 - 0.0.5 The access point to list all supported locales now output real data from romcal.
 - 0.0.4 Add `.npmignore` file, and rename correctly some files to lowercase.
 - 0.0.3 Integrate the serverless framework into romcal-api: romcal-api is now available as a wrapped Express middleware or a FaaS/Lambda.
