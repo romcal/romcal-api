@@ -169,15 +169,17 @@ If the criteria isn't recognized, romcap-api will return an error (`422 UNPROCES
 
 ### <a name="getCalendars"></a>:small_orange_diamond: List all available calendars
 
-> `/calendars` <br>
-> Output an array of calendar names.
+- Get a list of all calendars `GET /calendars`
+
+Output an `Array` of calendar names.
 
 ---
 
 ### <a name="getLocales"></a>:small_orange_diamond: List all supported locales
 
-> `/locales` <br>
-> Output an array of locales keys.
+- Get a list of all locales `GET /locales`
+
+Output an `Array` of locales keys.
 
 ---
 
@@ -208,6 +210,7 @@ To-do list (non-exclusive):
 
 ## History
 
+- 0.0.6 Start a calendar endpoint refactor. Update build files. Update this readme.md
 - 0.0.5 The access point to list all supported locales now output real data from romcal.
 - 0.0.4 Add `.npmignore` file, and rename correctly some files to lowercase.
 - 0.0.3 Integrate the serverless framework into romcal-api: romcal-api is now available as a wrapped Express middleware or a FaaS/Lambda.
