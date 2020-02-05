@@ -4,9 +4,12 @@
 # Sources
 config
 src
+.idea
 .editorconfig
 .eslintcache
 .eslintrc.js
 index.ts
 tsconfig.json
 webpack.config.js
+serverless.yml
+_config.yml
