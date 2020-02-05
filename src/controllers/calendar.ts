@@ -1,15 +1,15 @@
-const _ = require('lodash');
-const moment = require('moment');
-const romcal = require('romcal');
-const Utils = require('../lib/utils');
+import _ from 'lodash';
+import * as moment from 'moment';
+import * as romcal from 'romcal';
+import Utils from '../lib/utils';
 
-class CalendarController {
-  getAllCalendars(req, res) {
+export default class CalendarController {
+  static getAllCalendars(_req, res) {
     return res.status(200).send(romcal.Countries);
   }
 
-  getCalendar(req, res) {
-    let options = {
+  static getCalendar(req, res) {
+    const options: any = {
       type: 'calendar',
       query: {},
     };
@@ -78,9 +78,10 @@ class CalendarController {
     }
 
     // Optional query parameters
-    if (req.query.weekday) options.query.day = parseInt(req.query.weekday, 10);
-    if (req.query.group) options.query.group = _.camelCase(req.query.group.toLowerCase());
-    if (req.query.title) options.query.title = Utils.toUnderscoreCase(req.query.title.toLowerCase()).toUpperCase();
+    const q = req.query;
+    if (q.weekday) options.query.day = parseInt(q.weekday, 10);
+    if (q.group) options.query.group = _.camelCase(q.group.toLowerCase());
+    if (q.title) options.query.title = Utils.toUnderscoreCase(q.title.toLowerCase()).toUpperCase();
 
     // Do romcal request
     let dates = romcal.calendarFor(options);
@@ -101,7 +102,3 @@ class CalendarController {
     return res.status(200).send(dates);
   }
 }
-
-const calendarController = new CalendarController();
-
-module.exports = calendarController;

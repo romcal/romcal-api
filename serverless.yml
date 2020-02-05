@@ -4,6 +4,10 @@ provider:
   name: aws
   runtime: nodejs12.x
   stage: dev
+  apiGateway:
+    minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
 
 functions:
   app:
@@ -31,4 +35,10 @@ functions:
       - http: 'GET /locales'
 
 plugins:
+  - serverless-webpack
   - serverless-offline
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true

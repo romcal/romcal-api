@@ -25,7 +25,7 @@ $ npm install express
 ```
 
 ```javascript
-// index.js
+// index.ts
 
 const express = require('express');
 const romcalMiddleware = require('romcal-api').middleware;
@@ -41,7 +41,7 @@ app.listen(PORT, () => {
 ```
 
 ```
-$ node index.js
+$ node index.ts
 ```
 
 ### <a name="serverless"></a> Through the serverless framework
@@ -171,6 +171,7 @@ To-do list:
 
 ## History
 
+- 0.0.6 Switch codebase to TypeScript.
 - 0.0.5 The access point to list all supported locales now output real data from romcal.
 - 0.0.4 Add `.npmignore` file, and rename correctly some files to lowercase.
 - 0.0.3 Integrate the serverless framework into romcal-api: romcal-api is now available as a wrapped Express middleware or a FaaS/Lambda.
