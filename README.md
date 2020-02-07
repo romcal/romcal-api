@@ -103,19 +103,19 @@ $ sls deploy
 
 You can use tools like [Postman](https://www.getpostman.com/) to play with the API.
 
-### <a name="getCalendars"></a> → List all available calendars
+### <a name="getCalendars"></a> List all available calendars
 
 - Get all calendars `GET /calendars`
 
 Output an `Array` of calendar names, supported by romcal.
 
-### <a name="getLocales"></a> → List all supported locales
+### <a name="getLocales"></a> List all supported locales
 
 - Get all locales `GET /locales`
 
 Output an `Array` of locales keys, supported by romcal.
 
-### <a name="getCalendar"></a> → Get calendar data
+### <a name="getCalendar"></a> Get calendar data
 
 - Get celebrations `GET /calendar/{name}/{locale}/{date}`
 
@@ -149,19 +149,19 @@ The endpoint will lookup for a liturgical celebration (defined by its key name),
 The celebration with the provided key name might not be not output if this celebration has been replaced by another celebration with a higher rank.
 If the celebration key name doesn't exist in romcal for a particular calendar, it will return an error (`404 NOT FOUND`).
 
-#### Civil Year vs. Liturgical Year
+#### → Civil Year vs. Liturgical Year
 
 By default, each period is computed within a **civil year** (from 1 January to 31 December of the given year).
 To get dates computed within a **liturgical year**, you need to specify `calendar=liturgical` as a URL parameter.
 When dates are computed within a liturgical period, `year` corresponds to the year in which the liturgical year began.
 
-#### Some examples
+#### → Some examples
 
 - `/calendar/france/fr` return an array of dates from 1 January to 31 December of the current year.
 - `/calendar/poland/pl?type=liturgical` return an array of date from the 1st Sunday of Advent to the last Saturday of Ordinary Time of the current liturgical year.
 - `/calendar/canada/en/2018-12?type=liturgical` return an array of dates from December 2, 2018 (which is the first day of the liturgical year for 2018-2019) to December 31, 2018.
 
-#### Filtering results
+#### → Filtering results
 
 Theses optional query strings are available for filtering data directly from the server:
 
@@ -170,7 +170,7 @@ Theses optional query strings are available for filtering data directly from the
 
 You can, of course, combine different filters. For example `/calendar/spain/es?weekday=4&title=martyr`
 
-#### Group results by criteria
+#### → Group results by criteria
 
 - `group=[string]`: Calendar dates can be grouped by various criteria upon invocation like so: `days`, `months`, `days-by-month`, `weeks-by-month`, `cycles`, `types`, `liturgical-seasons`, `liturgical-colors`, `psalter-weeks`.
 
