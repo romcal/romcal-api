@@ -252,6 +252,7 @@ Note: this step as well as tests are run automatically before releasing a new ve
 
 ## History
 
+- 1.0.1 New logo for romcal-api.
 - 1.0.0 Bump version. After initial commits to make romcal-api alive, this project is now enough tooled and stable to be used as third party app or server.
 - 0.1.8 Introduce test framework: Jest and Supertest. Starting to stabilize the code and consolidate returned data.
 - 0.1.7 Update build files. Update this readme.md
