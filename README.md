@@ -16,8 +16,6 @@
   <img alt="npm" src="https://img.shields.io/npm/dm/romcal-api?color=blue&style=flat-square">
 </p>
 
-If you are looking to use romcal as a Node.js dependency without Express, or as a browser / front-end library, you might consider having a look to the main [romcal](https://github.com/romcal/romcal) repository instead.
-
 - [Usage](#usage):
   - [As an express middleware](#middleware)
   - [Through the serverless framework](#serverless)
@@ -27,6 +25,8 @@ If you are looking to use romcal as a Node.js dependency without Express, or as 
   - [Get calendar data](#getCalendar)
 - [Contribute](#contribute)
 - [Roadmap](#roadmap)
+
+If you are looking to use romcal as a Node.js dependency without Express, or as a browser / front-end library, you might consider having a look to the main [romcal](https://github.com/romcal/romcal) repository instead.
 
 ## Usage
 
@@ -252,6 +252,7 @@ Note: this step as well as tests are run automatically before releasing a new ve
 
 ## History
 
+- 1.0.2 Readme fine-tuning.
 - 1.0.1 New logo for romcal-api.
 - 1.0.0 Bump version. After initial commits to make romcal-api alive, this project is now enough tooled and stable to be used as third party app or server.
 - 0.1.8 Introduce test framework: Jest and Supertest. Starting to stabilize the code and consolidate returned data.
