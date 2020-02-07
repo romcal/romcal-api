@@ -177,7 +177,7 @@ You can, of course, combine different filters. For example `/calendar/spain/es?w
 When using this parameter, romcal-api output first an `Object` where keys represent the grouped data.
 If the criteria aren't recognized, romcap-api will return an error (`422 UNPROCESSABLE ENTRY`).
 
-## <a name="contribute"></a>Contribute: make romcal-api better
+## <a name="contribute"></a> Contribute: make romcal-api better
 
 romcal-api is in the early stages of development: the API and returned schemas could change in a near future.
 Any help, or simply sharing ideas on the issue tracker, are all welcome!
@@ -206,7 +206,7 @@ $ npm test
 $ npm run test:watch
 ```
 
-## Roadmap (non-exclusive)
+## <a name="roadmap"></a> Roadmap (non-exclusive)
 
 - [ ] Add full API support for Calendars, Locales, Dates
 - [ ] Get dates within a custom range: between 2 dates (civil or liturgical date), or 2 seasons (the first day of the first season and the last day of the 2nd season)
