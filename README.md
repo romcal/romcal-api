@@ -5,19 +5,20 @@ REST API for liturgical calendars in Catholic Roman rite (Western Church).
 Powered by [romcal](https://github.com/romcal/romcal). This API is read-only, you can only get data from romcal.
 
 - [Usage](#usage):
-  - [As an express middleware](#express-middleware)
+  - [As an express middleware](#middleware)
   - [Through the serverless framework](#serverless)
 - [API](#api):
   - [List all available calendars](#getCalendars)
   - [List all supported locales](#getLocales)
   - [Get calendar data](#getCalendar)
 - [Contribute](#contribute)
+- [Roadmap](#roadmap)
 
 If you are looking to use romcal as a Node.js dependency without Express, or as a browser / front-end library, you might consider having a look to the main [romcal](https://github.com/romcal/romcal) repository instead.
 
 ## Usage
 
-### <a name="express-middleware"></a> As an express middleware
+### <a name="middleware"></a> → As an express middleware
 
 Actually only Express is supported. More frameworks might be supported in the future.
 
@@ -46,7 +47,7 @@ app.listen(PORT, () => {
 $ node index.js
 ```
 
-### <a name="serverless"></a> Through the serverless framework
+### <a name="serverless"></a> → Through the serverless framework
 
 Actually only AWS Lambda is supported. More providers might be supported in the future.
 
@@ -102,23 +103,19 @@ $ sls deploy
 
 You can use tools like [Postman](https://www.getpostman.com/) to play with the API.
 
-### <a name="getCalendars"></a>:small_orange_diamond: List all available calendars
+### <a name="getCalendars"></a> → List all available calendars
 
 - Get all calendars `GET /calendars`
 
 Output an `Array` of calendar names, supported by romcal.
 
----
-
-### <a name="getLocales"></a>:small_orange_diamond: List all supported locales
+### <a name="getLocales"></a> → List all supported locales
 
 - Get all locales `GET /locales`
 
 Output an `Array` of locales keys, supported by romcal.
 
----
-
-### <a name="getCalendar"></a>:small_orange_diamond: Get calendar data
+### <a name="getCalendar"></a> → Get calendar data
 
 - Get celebrations `GET /calendar/{name}/{locale}/{date}`
 
@@ -140,7 +137,7 @@ However another [specific endpoint](#getLocales) is available to get the list of
 | For yesterday: | `GET /calendar/{name}/{locale}/yesterday`
 | For today: | `GET /calendar/{name}/{locale}/today`
 | For tomorrow: | `GET /calendar/{name}/{locale}/tomorrow`
-| For a specific liturgical season within a year: <br> _The `season` key is described below this table._ | `GET /calendar/{name}/{locale}/{YYYY-season}` <br>&nbsp;
+| For a specific liturgical season within a year: <br> _The `season` key is described below this table._ | `GET /calendar/{name}/{locale}/{YYYY-season}`
 | For a date that matches a given liturgical celebration within a year: <br> _The `celebration-lookup` is described below this table.<br>Not fully supported yet_ | `GET /calendar/{name}/{locale}/{YYYY-celebration-lookup}` <br>&nbsp;
 
 The `season` key name must be written in kebab case.
@@ -180,8 +177,6 @@ You can, of course, combine different filters. For example `/calendar/spain/es?w
 When using this parameter, romcal-api output first an `Object` where keys represent the grouped data.
 If the criteria aren't recognized, romcap-api will return an error (`422 UNPROCESSABLE ENTRY`).
 
----
-
 ## <a name="contribute"></a>Contribute: make romcal-api better
 
 romcal-api is in the early stages of development: the API and returned schemas could change in a near future.
@@ -211,9 +206,10 @@ $ npm test
 $ npm run test:watch
 ```
 
-To-do list (non-exclusive):
+## Roadmap (non-exclusive)
+
 - [ ] Add full API support for Calendars, Locales, Dates
-- [ ] Get dates in a custom range: between 2 dates (civil or liturgical date), or 2 seasons (the first day of the first season and the last day of the 2nd season)
+- [ ] Get dates within a custom range: between 2 dates (civil or liturgical date), or 2 seasons (the first day of the first season and the last day of the 2nd season)
 - [ ] Replace Express by Fastify or Koa -> they are more modern (but still very mature), highly maintained and focus on speed.
 - [ ] Move to GraphQL (or support both REST API and GraphQL)
 - [ ] Support date offset to manage different time zones between clients and the back-end API
