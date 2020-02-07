@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="babel" src="https://user-images.githubusercontent.com/1045997/74043284-5d40bf80-49c9-11ea-9452-246a7ac8cfbf.png" width="546">
+  <img alt="babel" src="https://user-images.githubusercontent.com/1045997/74047293-62edd380-49d0-11ea-99bb-2e19b378985f.png" width="546">
 </p>
 
 <p align="center">
@@ -16,6 +16,8 @@
   <img alt="npm" src="https://img.shields.io/npm/dm/romcal-api?color=blue&style=flat-square">
 </p>
 
+If you are looking to use romcal as a Node.js dependency without Express, or as a browser / front-end library, you might consider having a look to the main [romcal](https://github.com/romcal/romcal) repository instead.
+
 - [Usage](#usage):
   - [As an express middleware](#middleware)
   - [Through the serverless framework](#serverless)
@@ -25,8 +27,6 @@
   - [Get calendar data](#getCalendar)
 - [Contribute](#contribute)
 - [Roadmap](#roadmap)
-
-If you are looking to use romcal as a Node.js dependency without Express, or as a browser / front-end library, you might consider having a look to the main [romcal](https://github.com/romcal/romcal) repository instead.
 
 ## Usage
 
