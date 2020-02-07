@@ -1,8 +1,20 @@
-# romcal-api
+<p align="center">
+  <img alt="babel" src="https://user-images.githubusercontent.com/1045997/74043284-5d40bf80-49c9-11ea-9452-246a7ac8cfbf.png" width="546">
+</p>
 
-REST API for liturgical calendars in Catholic Roman rite (Western Church).
+<p align="center">
+  REST API to get liturgical calendars in Catholic Roman rite.
+</p>
 
-Powered by [romcal](https://github.com/romcal/romcal). This API is read-only, you can only get data from romcal.
+<p align="center">
+  Powered by <a href="https://github.com/romcal/romcal">romcal</a>.
+</p>
+
+<p align="center">
+  <img alt="GitHub" src="https://img.shields.io/github/license/romcal/romcal-api?color=blue&style=flat-square">
+  <img alt="npm" src="https://img.shields.io/npm/v/romcal-api?color=blue&style=flat-square">
+  <img alt="npm" src="https://img.shields.io/npm/dm/romcal-api?color=blue&style=flat-square">
+</p>
 
 - [Usage](#usage):
   - [As an express middleware](#middleware)
