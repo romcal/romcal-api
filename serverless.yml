@@ -11,26 +11,26 @@ provider:
 
 functions:
   app:
-    handler: index.handler
+    handler: src/index.handler
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'
 
   # Optional: Each function instance below will have the same code, but they'll be segmented for metrics purposes.
   getCalendar:
-    handler: index.handler
+    handler: src/index.handler
     events:
       - http: 'GET /calendar/{proxy+}'
   getLiturgicalCalendar:
-    handler: index.handler
+    handler: src/index.handler
     events:
       - http: 'GET /liturgical-calendar/{proxy+}'
   getCalendars:
-    handler: index.handler
+    handler: src/index.handler
     events:
       - http: 'GET /calendars'
   getLocales:
-    handler: index.handler
+    handler: src/index.handler
     events:
       - http: 'GET /locales'
 

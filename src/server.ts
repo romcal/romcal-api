@@ -1,10 +1,5 @@
-import * as express from 'express';
-import config from '../config/config';
-import romcalAPI from './express-middleware';
-
-// Set up the express middleware API
-const app = express();
-app.use(romcalAPI);
+import config from './config';
+import app from './app';
 
 app.listen(config.port, () => {
   // eslint-disable-next-line no-console

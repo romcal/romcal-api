@@ -1,6 +1,6 @@
 {
   "name": "romcal-api",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "REST API for liturgical calendars in Catholic Roman rite (Western Church). Powered by romcal.",
   "main": "dist/service/index.js",
   "engines": {
@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node_modules/.bin/nodemon src/server.ts --inspect",
     "build": "webpack-cli --config webpack.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -44,16 +45,21 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.40",
     "@types/express": "^4.17.2",
+    "@types/jest": "^25.1.1",
     "@types/node": "^13.7.0",
+    "@types/supertest": "^2.0.8",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.19.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.0",
     "fork-ts-checker-webpack-plugin": "^4.0.3",
+    "jest": "^25.1.0",
     "nodemon": "^2.0.2",
     "serverless-offline": "^5.12.1",
     "serverless-webpack": "^5.3.1",
+    "supertest": "^4.0.2",
+    "ts-jest": "^25.2.0",
     "ts-loader": "^6.2.1",
     "ts-node": "^8.6.2",
     "typescript": "^3.7.5",

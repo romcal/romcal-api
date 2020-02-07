@@ -187,33 +187,50 @@ If the criteria aren't recognized, romcap-api will return an error (`422 UNPROCE
 romcal-api is in the early stages of development: the API and returned schemas could change in a near future.
 Any help, or simply sharing ideas on the issue tracker, are all welcome!
 
-To get the project and run it locally:
+To get the project
 
 ```
 $ git clone https://github.com/romcal/romcal-api.git
 $ cd romcal-api
 $ npm install
+```
+
+Note: if you plan to submit Pull Requests, first you must fork this project in your own GitHub profile, and then clone your forked romcal-api repository.
+
+To run and debug romcal-api locally:
+```shell script
 $ npm start
 ```
 
-Note: if you plan to submit Pull Requests, you must fork this project in your own GitHub profile first, and then clone your forked romcal-api repository.
+Tests can be executed with:
+```
+# Execute tests once:
+$ npm test
+
+# Tests watcher:
+$ npm run test:watch
+```
 
 To-do list (non-exclusive):
 - [ ] Add full API support for Calendars, Locales, Dates
+- [ ] Get dates in a custom range: between 2 dates (civil or liturgical date), or 2 seasons (the first day of the first season and the last day of the 2nd season)
+- [ ] Replace Express by Fastify or Koa -> they are more modern (but still very mature), highly maintained and focus on speed.
+- [ ] Move to GraphQL (or support both REST API and GraphQL)
 - [ ] Support date offset to manage different time zones between clients and the back-end API
 - [ ] Support Docker
-- [ ] Add tests
+- [ ] More tests
 - [ ] More documentation
 - [ ] More examples
 - [ ] ...
 
 ## History
 
+- 0.0.8 Introduce test framework: Jest and Supertest. Starting to stabilize the code and consolidate returned data.
 - 0.0.7 Update build files. Update this readme.md
 - 0.0.6 Start a calendar endpoint refactor.
 - 0.0.5 The access point to list all supported locales now output real data from romcal.
 - 0.0.4 Add `.npmignore` file, and rename some files correctly to lowercase.
-- 0.0.3 Integrate the serverless framework into romcal-api: romcal-api is now available as a wrapped Express middleware or a FaaS/Lambda.
+- 0.0.3 Introduce the serverless framework into romcal-api: romcal-api is now available as a wrapped Express middleware or a FaaS/Lambda.
 - 0.0.2 Update node dependencies and use the last version of romcal 1.3.0
 - 0.0.1 Initial API setup and documentation
 

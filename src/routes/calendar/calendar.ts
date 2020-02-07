@@ -1,7 +1,6 @@
 import * as _ from 'lodash';
-import * as moment from 'moment';
+import moment from 'moment';
 import * as romcal from 'romcal';
-import Utils from '../lib/utils';
 
 export default class Calendar {
   private static readonly dateRe = /^(?:(?<alias>yesterday|today|tomorrow)|(?:(?<year>\d{4})(?:-(?<key>[a-z-]+)|-(?:(?<month>\d{1,2})(?:-(?<day>\d{1,2}))?))?))$/i;
@@ -10,9 +9,9 @@ export default class Calendar {
     return !!Calendar.dateRe.exec(date);
   }
 
-  private static dateParams(date: string): Object {
-    const params = Calendar.dateRe.exec(date.toLowerCase());
-    return params ? params.groups : {};
+  private static dateParams(date?: string): Object {
+    const params = date ? Calendar.dateRe.exec(date.toLowerCase()) : { groups: {} };
+    return params.groups;
   }
 
   private static getBeginningLiturgicalYear(date: Date | moment.Moment): number {
@@ -22,10 +21,6 @@ export default class Calendar {
     const isTodayBeforeAdvent = firstSundayOfAdvent.isSameOrAfter(day);
     year = isTodayBeforeAdvent ? year - 1 : year;
     return year;
-  }
-
-  static getAllCalendars(_req, res) {
-    return res.status(200).send(romcal.Countries);
   }
 
   static getCalendar(req, res) {
@@ -138,7 +133,7 @@ export default class Calendar {
     // Optional query parameters
     if (params.weekday) config.query.day = parseInt(params.weekday, 10);
     if (params.group) config.query.group = _.camelCase(params.group.toLowerCase());
-    if (params.title) config.query.title = Utils.toUnderscoreCase(params.title.toLowerCase()).toUpperCase();
+    if (params.title) config.query.title = _.snakeCase(params.title.toLowerCase()).toUpperCase();
 
     // Do romcal request
     let dates = romcal.calendarFor(config);
