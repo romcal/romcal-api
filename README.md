@@ -182,7 +182,7 @@ If the criteria aren't recognized, romcap-api will return an error (`422 UNPROCE
 romcal-api is in the early stages of development: the API and returned schemas could change in a near future.
 Any help, or simply sharing ideas on the issue tracker, are all welcome!
 
-### Get the romcal-api project
+#### → Get the romcal-api project
 
 ```
 $ git clone https://github.com/romcal/romcal-api.git
@@ -192,7 +192,7 @@ $ npm install
 
 Note: if you plan to submit Pull Requests, first you must fork this project in your own GitHub profile, and then clone your forked `romcal-api` repository.
 
-### Run and debug romcal-api locally
+#### → Run and debug romcal-api locally
 
 Run an Express server with a watcher. The server is reloaded each time you edit the code.
 ```
@@ -204,7 +204,7 @@ Or if you have [Serverless](https://serverless.com/framework/docs/providers/aws/
 $ sls offline start
 ```
 
-### Run tests
+#### → Run tests
 
 Execute tests once:
 ```
@@ -216,14 +216,14 @@ Or run a test watcher:
 $ npm run test:watch
 ```
 
-### Build sources
+#### → Build sources
 
 Builds all the TypeScript sources to JavaScript, allowing importing the `romcal-api` module in any Node.js projects:
 ```
 $ npm run build
 ```
 
-Note: this step is run automatically before releasing a new version to npmjs.org
+Note: this step as well as tests are run automatically before releasing a new version to npmjs.org
 
 ## <a name="roadmap"></a> Roadmap (non-exclusive)
 

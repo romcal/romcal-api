@@ -11,7 +11,7 @@
     "build": "webpack-cli --config webpack.config.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm test && npm run build"
   },
   "repository": {
     "type": "git",
