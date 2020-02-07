@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  REST API to get liturgical calendars in Catholic Roman rite.
+  REST API to get the liturgical calendar in Catholic Roman rite.
 </p>
 
 <p align="center">
