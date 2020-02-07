@@ -252,15 +252,15 @@ Note: this step as well as tests are run automatically before releasing a new ve
 
 ## History
 
-- 0.1.0 Bump version. After initial commits to make romcal-api alive, this project is now enough tooled and stable to be used as third party app or server.
-- 0.0.8 Introduce test framework: Jest and Supertest. Starting to stabilize the code and consolidate returned data.
-- 0.0.7 Update build files. Update this readme.md
-- 0.0.6 Start a calendar endpoint refactor.
-- 0.0.5 The access point to list all supported locales now output real data from romcal.
-- 0.0.4 Add `.npmignore` file, and rename some files correctly to lowercase.
-- 0.0.3 Introduce the serverless framework into romcal-api: romcal-api is now available as a wrapped Express middleware or a FaaS/Lambda.
-- 0.0.2 Update node dependencies and use the last version of romcal 1.3.0
-- 0.0.1 Initial API setup and documentation
+- 1.0.0 Bump version. After initial commits to make romcal-api alive, this project is now enough tooled and stable to be used as third party app or server.
+- 0.1.8 Introduce test framework: Jest and Supertest. Starting to stabilize the code and consolidate returned data.
+- 0.1.7 Update build files. Update this readme.md
+- 0.1.6 Start a calendar endpoint refactor.
+- 0.1.5 The access point to list all supported locales now output real data from romcal.
+- 0.1.4 Add `.npmignore` file, and rename some files correctly to lowercase.
+- 0.1.3 Introduce the serverless framework into romcal-api: romcal-api is now available as a wrapped Express middleware or a FaaS/Lambda.
+- 0.1.2 Update node dependencies and use the last version of romcal 1.3.0
+- 0.1.1 Initial API setup and documentation
 
 ## License
 
