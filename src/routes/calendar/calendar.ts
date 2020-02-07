@@ -162,7 +162,9 @@ export default class Calendar {
         // For grouped data, we need to filter in each groups
         // And only return groups that have items
         dates = _(dates)
-          .map((group, key) => ({ [key]: _.filter(group, (d) => criteria.indexOf(_.kebabCase(d.data.season.key)) > -1) }))
+          .map((group, key) => ({
+            [key]: _.filter(group, (d) => criteria.indexOf(_.kebabCase(d.data.season.key)) > -1),
+          }))
           .filter((group) => group[Object.keys(group)[0]].length);
       } else {
         dates = _.filter(dates, (d) => criteria.indexOf(_.kebabCase(d.data.season.key)) > -1);

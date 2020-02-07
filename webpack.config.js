@@ -2,11 +2,14 @@ const path = require('path');
 const slsw = require('serverless-webpack');
 const nodeExternals = require('webpack-node-externals');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   context: __dirname,
   mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
-  entry: slsw.lib.entries,
+  entry: {
+    'src/index': './src/index.ts'
+  },
   devtool: slsw.lib.webpack.isLocal ? 'cheap-module-eval-source-map' : 'source-map',
   resolve: {
     extensions: ['.mjs', '.json', '.ts'],
@@ -30,7 +33,7 @@ module.exports = {
           [
             path.resolve(__dirname, 'node_modules'),
             path.resolve(__dirname, '.serverless'),
-            path.resolve(__dirname, '.webpack'),
+            path.resolve(__dirname, 'dist')
           ],
         ],
         options: {
@@ -41,6 +44,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin({
       eslint: true,
       eslintOptions: {

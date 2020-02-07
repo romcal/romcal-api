@@ -182,7 +182,7 @@ If the criteria aren't recognized, romcap-api will return an error (`422 UNPROCE
 romcal-api is in the early stages of development: the API and returned schemas could change in a near future.
 Any help, or simply sharing ideas on the issue tracker, are all welcome!
 
-To get the project
+### Get the romcal-api project
 
 ```
 $ git clone https://github.com/romcal/romcal-api.git
@@ -190,21 +190,40 @@ $ cd romcal-api
 $ npm install
 ```
 
-Note: if you plan to submit Pull Requests, first you must fork this project in your own GitHub profile, and then clone your forked romcal-api repository.
+Note: if you plan to submit Pull Requests, first you must fork this project in your own GitHub profile, and then clone your forked `romcal-api` repository.
 
-To run and debug romcal-api locally:
-```shell script
+### Run and debug romcal-api locally
+
+Run an Express server with a watcher. The server is reloaded each time you edit the code.
+```
 $ npm start
 ```
 
-Tests can be executed with:
+Or if you have [Serverless](https://serverless.com/framework/docs/providers/aws/guide/quick-start/) installed on your machine, you can start romcal-api locally in an [AWS λ](https://aws.amazon.com/lambda) and [API Gateway](https://aws.amazon.com/api-gateway) emulator:
 ```
-# Execute tests once:
-$ npm test
+$ sls offline start
+```
 
-# Tests watcher:
+### Run tests
+
+Execute tests once:
+```
+$ npm test
+```
+
+Or run a test watcher:
+```
 $ npm run test:watch
 ```
+
+### Build sources
+
+Builds all the TypeScript sources to JavaScript, allowing importing the `romcal-api` module in any Node.js projects:
+```
+$ npm run build
+```
+
+Note: this step is run automatically before releasing a new version to npmjs.org
 
 ## <a name="roadmap"></a> Roadmap (non-exclusive)
 
@@ -221,6 +240,7 @@ $ npm run test:watch
 
 ## History
 
+- 0.1.0 Bump version. After initial commits to make romcal-api alive, this project is now enough tooled and stable to be used as third party app or server.
 - 0.0.8 Introduce test framework: Jest and Supertest. Starting to stabilize the code and consolidate returned data.
 - 0.0.7 Update build files. Update this readme.md
 - 0.0.6 Start a calendar endpoint refactor.
