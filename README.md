@@ -32,7 +32,7 @@ If you are looking to use romcal as a Node.js dependency without Express, or as 
 
 ## Usage
 
-### <a name="middleware"></a> → As an express middleware
+### <a name="middleware"></a> → As an Express middleware
 
 Actually only Express is supported. More frameworks might be supported in the future.
 
@@ -61,7 +61,7 @@ app.listen(PORT, () => {
 $ node index.js
 ```
 
-### <a name="serverless"></a> → Through the serverless framework
+### <a name="serverless"></a> → Through the Serverless framework
 
 Actually only AWS Lambda is supported. More providers might be supported in the future.
 
