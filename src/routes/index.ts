@@ -1,14 +1,23 @@
+import * as _ from 'lodash';
 import express from 'express';
-import config from '../config';
+import defaultConfig from '../config';
 import Calendar from './calendar/calendar';
 import Calendars from './calendars/calendars';
 import Locale from './locale/locale';
+import Version from './version/version';
 
 const router = express.Router();
 
-// router
-router.get(`${config.baseUrl}/calendar/:country?/:locale?/:date?`, Calendar.getCalendar);
-router.get(`${config.baseUrl}/calendars`, Calendars.getAllCalendars);
-router.get(`${config.baseUrl}/locales`, Locale.getAllLocales);
+function initRouter(config?: {baseUrl: string}) {
+  let c = _.isPlainObject(config) ? config : defaultConfig;
+  c = { ...defaultConfig, ...config };
 
-export default router;
+  router.get(`${c.baseUrl}/calendar/:country?/:locale?/:date?`, Calendar.getCalendar);
+  router.get(`${c.baseUrl}/calendars`, Calendars.getAllCalendars);
+  router.get(`${c.baseUrl}/locales`, Locale.getAllLocales);
+  router.get(`${c.baseUrl}/version`, Version.getVersion);
+
+  return router;
+}
+
+export default initRouter;

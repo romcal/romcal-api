@@ -2,7 +2,7 @@ import request from 'supertest';
 import app  from '../../app';
 
 describe( `GET /calendar`, () => {
-  it('Return an Array of Object', async () => request(app)
+  it('Return an Array of Object', async () => request(app())
     .get('/calendar/france/fr')
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)

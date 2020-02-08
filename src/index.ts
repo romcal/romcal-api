@@ -1,7 +1,7 @@
 import handler from './handler';
-import middleware from './routes';
+import expressMiddleware from './routes';
 
 export {
   handler,
-  middleware,
+  expressMiddleware,
 };

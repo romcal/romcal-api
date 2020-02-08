@@ -25,6 +25,7 @@
   - [List all available calendars](#getCalendars)
   - [List all supported locales](#getLocales)
   - [Get calendar data](#getCalendar)
+  - [Get the API version](#getVersion)
 - [Contribute](#contribute)
 - [Roadmap](#roadmap)
 
@@ -45,7 +46,8 @@ $ npm install express
 // index.js
 
 const express = require('express');
-const romcalMiddleware = require('romcal-api').middleware;
+const romcalConfig = { baseUrl: '' }; // Optional config
+const romcalMiddleware = require('romcal-api').expressMiddleware(romcalConfig);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -191,6 +193,12 @@ You can, of course, combine different filters. For example `/calendar/spain/es?w
 When using this parameter, romcal-api output first an `Object` where keys represent the grouped data.
 If the criteria aren't recognized, romcap-api will return an error (`422 UNPROCESSABLE ENTRY`).
 
+### <a name="getVersion"></a> Get the API version
+
+- Get version `GET /version`
+
+Output an `Object` containing the version of romcal-api, and the version of [romcal](https://github.com/romcal/romcal) on which this project is based.
+
 ## <a name="contribute"></a> Contribute: make romcal-api better
 
 romcal-api is in the early stages of development: the API and returned schemas could change in a near future.
@@ -254,6 +262,7 @@ Note: this step as well as tests are run automatically before releasing a new ve
 
 ## History
 
+- 1.0.3 Get romcal-api version from the API. Support optional parameters when using romcal-api through an Express middleware.
 - 1.0.2 Readme fine-tuning.
 - 1.0.1 New logo for romcal-api.
 - 1.0.0 Bump version. After initial commits to make romcal-api alive, this project is now enough tooled and stable to be used as third party app or server.

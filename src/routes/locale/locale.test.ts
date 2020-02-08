@@ -2,7 +2,7 @@ import request from 'supertest';
 import app  from '../../app';
 
 describe( `GET /locales`, () => {
-  it('Return an Array of Strings', async () => request(app)
+  it('Return an Array of Strings', async () => request(app())
     .get('/locales')
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)
@@ -13,7 +13,7 @@ describe( `GET /locales`, () => {
     })
   );
 
-  it('Return at least one locale name', async () => request(app)
+  it('Return at least one locale name', async () => request(app())
     .get('/locales')
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)
@@ -24,7 +24,7 @@ describe( `GET /locales`, () => {
     })
   );
 
-  it('Names of locales are written in a standardized locale naming form', async () => request(app)
+  it('Names of locales are written in a standardized locale naming form', async () => request(app())
     .get('/locales')
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)

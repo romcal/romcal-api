@@ -2,7 +2,7 @@ import request from 'supertest';
 import app  from '../../app';
 
 describe( `GET /calendars`, () => {
-  it('Return an Array of Strings', async () => request(app)
+  it('Return an Array of Strings', async () => request(app())
     .get('/calendars')
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)
@@ -13,7 +13,7 @@ describe( `GET /calendars`, () => {
     })
   );
 
-  it('Return at least one calendar name', async () => request(app)
+  it('Return at least one calendar name', async () => request(app())
     .get('/calendars')
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)
@@ -24,7 +24,7 @@ describe( `GET /calendars`, () => {
     })
   );
 
-  it('Names of calendars are written kebab case and contains only alphabetic characters', async () => request(app)
+  it('Names of calendars are written kebab case and contains only alphabetic characters', async () => request(app())
     .get('/calendars')
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)

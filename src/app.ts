@@ -3,7 +3,10 @@ import router from './routes';
 
 const app = express();
 
-// Set up the express middleware API
-app.use(router);
+function initApp(config?) {
+  // Set up the express middleware API
+  app.use(router(config));
+  return app;
+}
 
-export default app;
+export default initApp;
