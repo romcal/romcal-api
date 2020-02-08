@@ -239,6 +239,11 @@ $ npm run build
 
 Note: this step as well as tests are run automatically before releasing a new version to npmjs.org
 
+
+## Hosted/Live Examples
+Below are a list of publicly available APIs based on this project:
+  1. https://calendar.hymnal.com.ng/api/v1/calendars
+
 ## <a name="roadmap"></a> Roadmap (non-exclusive)
 
 - [ ] Add full API support for Calendars, Locales, Dates
