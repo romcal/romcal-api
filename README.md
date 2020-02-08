@@ -262,6 +262,7 @@ Note: this step as well as tests are run automatically before releasing a new ve
 
 ## History
 
+- 1.0.4 Add 404 error message on "Not found pages".
 - 1.0.3 Get romcal-api version from the API. Support optional parameters when using romcal-api through an Express middleware.
 - 1.0.2 Readme fine-tuning.
 - 1.0.1 New logo for romcal-api.
