@@ -14,13 +14,15 @@ export default class Calendar {
     return params.groups;
   }
 
+  private static isTodayBeforeAdvent(date: Date | moment.Moment): boolean {
+    const day = moment(date);
+    const firstSundayOfAdvent = romcal.Dates.firstSundayOfAdvent(day.year());
+    return firstSundayOfAdvent.isSameOrAfter(day);
+  }
+
   private static getBeginningLiturgicalYear(date: Date | moment.Moment): number {
     let year = moment(date).year();
-    const day = moment(date);
-    const firstSundayOfAdvent = romcal.Dates.firstSundayOfAdvent(year);
-    const isTodayBeforeAdvent = firstSundayOfAdvent.isSameOrAfter(day);
-    year = isTodayBeforeAdvent ? year - 1 : year;
-    return year;
+    return Calendar.isTodayBeforeAdvent(date) ? year - 1 : year;
   }
 
   static getCalendar(req, res) {
@@ -62,7 +64,7 @@ export default class Calendar {
     // Locale
     config.locale = params.locale;
 
-    // Date: year not correctly defined
+    // Date not correctly defined
     if (params.date && !Calendar.hasDateParams(params.date)) {
       return res.status(422).send({
         error: '422',
@@ -72,7 +74,7 @@ export default class Calendar {
 
     // Date: year not defined -> define the current year
     if (!params.date && !Calendar.hasDateParams(params.date)) {
-      config.year = new Date().getFullYear();
+      config.year = new Date().getUTCFullYear();
 
       // Liturgical Calendar:
       // If today is before the first Sunday of Advent (within the current civil year),
@@ -81,20 +83,20 @@ export default class Calendar {
       config.year = config.type === 'liturgical' ? Calendar.getBeginningLiturgicalYear(today) : config.year;
     }
 
-    // Dates: yesterday, today and tomorrow
-    if (['yesterday', 'today', 'tomorrow'].indexOf(params.alias) > -1) {
-      let day = new Date();
-      if (params.alias === 'yesterday') day = new Date(day.setDate(day.getDate() - 1));
-      if (params.alias === 'tomorrow') day = new Date(day.setDate(day.getDate() + 1));
-      config.year = config.type === 'liturgical' ? Calendar.getBeginningLiturgicalYear(day) : day.getUTCFullYear();
-      config.month = day.getUTCMonth();
-      config.day = day.getUTCDate();
-    }
-
     // Dates: year, month, day
     if (params.year) config.year = parseInt(params.year, 10);
     if (params.month) config.query.month = parseInt(params.month, 10) - 1;
     if (params.day) config.day = parseInt(params.day, 10);
+
+    // Dates: yesterday, today and tomorrow
+    if (['yesterday', 'today', 'tomorrow'].indexOf(params.alias) > -1) {
+      let date = new Date();
+      if (params.alias === 'yesterday') date = new Date(date.setDate(date.getUTCDate() - 1));
+      if (params.alias === 'tomorrow') date = new Date(date.setDate(date.getUTCDate() + 1));
+      config.year = config.type === 'liturgical' ? Calendar.getBeginningLiturgicalYear(date) : date.getUTCFullYear();
+      config.query.month = date.getUTCMonth();
+      config.day = date.getUTCDate();
+    }
 
     if (params.key) {
       // Dates: by seasons
@@ -135,20 +137,28 @@ export default class Calendar {
     if (params.title) config.query.title = _.snakeCase(params.title.toLowerCase()).toUpperCase();
 
     // Do romcal request
-    let dates = romcal.calendarFor(config);
+    let dates = romcal.calendarFor(_.clone(config));
 
     // Find the optional day from the results (romcal doesn't support lookup for a specific day)
     if (config.day) {
-      const day = new Date(Date.UTC(config.year, config.month, config.day));
+
+      // On liturgical calendar, the year is the moment where a liturgical calendar start.
+      // So if the provided date is before the first Sunday of Advent in the current civil year,
+      // it means that must find the date in the year after
+      let date = new Date(Date.UTC(config.year, config.query.month, config.day));
+      if (config.type === 'liturgical') {
+        const year = Calendar.isTodayBeforeAdvent(date) ? config.year + 1 : config.year;
+        date = new Date(Date.UTC(year, config.query.month, config.day));
+      }
 
       if (config.query.group) {
         // For grouped data, we need to filter in each groups
         // And only return groups that have items
         dates = _(dates)
-          .map((group, key) => ({ [key]: _.filter(group, (d) => moment(d.moment).isSame(day, 'day')) }))
+          .map((group, key) => ({ [key]: _.filter(group, (d) => moment(d.moment).isSame(date, 'day')) }))
           .filter((group) => group[Object.keys(group)[0]].length);
       } else {
-        dates = _.filter(dates, (d) => moment(d.moment).isSame(day, 'day'));
+        dates = _.filter(dates, (d) => moment(d.moment).isSame(date, 'day'));
       }
     }
 
