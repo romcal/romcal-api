@@ -91,8 +91,8 @@ export default class Calendar {
     // Dates: yesterday, today and tomorrow
     if (['yesterday', 'today', 'tomorrow'].indexOf(params.alias) > -1) {
       let date = new Date();
-      if (params.alias === 'yesterday') date = new Date(date.setDate(date.getUTCDate() - 1));
-      if (params.alias === 'tomorrow') date = new Date(date.setDate(date.getUTCDate() + 1));
+      if (params.alias === 'yesterday') date = new Date(date.setUTCDate(date.getUTCDate() - 1));
+      if (params.alias === 'tomorrow') date = new Date(date.setUTCDate(date.getUTCDate() + 1));
       config.year = config.type === 'liturgical' ? Calendar.getBeginningLiturgicalYear(date) : date.getUTCFullYear();
       config.query.month = date.getUTCMonth();
       config.day = date.getUTCDate();

@@ -173,4 +173,36 @@ describe( `GET /calendar`, () => {
     })
   );
 
+  it('Get today within a civil year', async () => request(app())
+    .get('/calendar/general/en/today')
+    .set('Accept', 'application/json')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(function(res) {
+      let date = moment(res.body[0].moment);
+      let today = new Date();
+      let year = today.getUTCFullYear();
+      let month = (today.getUTCMonth() + 1).toString().padStart(2, '0');
+      let day = today.getUTCDate().toString().padStart(2, '0');
+
+      expect(formatDate(date)).toBe(`${year}-${month}-${day}`);
+    })
+  );
+
+  it('Get tomorrow within a civil year', async () => request(app())
+    .get('/calendar/general/en/tomorrow')
+    .set('Accept', 'application/json')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect(function(res) {
+      let date = moment(res.body[0].moment);
+      let today = new Date();
+      let year = today.getUTCFullYear();
+      let month = (today.getUTCMonth() + 1).toString().padStart(2, '0');
+      let tomorrow = new Date(today.setUTCDate(today.getUTCDate() + 1)).getUTCDate().toString().padStart(2, '0');
+
+      expect(formatDate(date)).toBe(`${year}-${month}-${tomorrow}`);
+    })
+  );
+
 });
