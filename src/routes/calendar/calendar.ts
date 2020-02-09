@@ -38,7 +38,6 @@ export default class Calendar {
     if (params.calendar === 'liturgical') config.type = 'liturgical';
 
     // Country calendar
-
     if (romcal.Countries.indexOf(params.country) === -1) {
       if (!params.country) {
         return res.status(404).send({

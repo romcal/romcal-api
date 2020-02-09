@@ -6,6 +6,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
+    "baseUrl": "./",
     "target": "es2017",
     "outDir": "lib",
     "resolveJsonModule": true,
@@ -13,6 +14,7 @@
   },
   "include": ["./**/*.ts"],
   "exclude": [
+    "./src/**/*.spec.ts",
     "./src/**/*.test.ts",
     "node_modules/**/*",
     ".serverless/**/*",

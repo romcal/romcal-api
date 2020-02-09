@@ -8,6 +8,7 @@ src
 .editorconfig
 .eslintcache
 .eslintrc.js
+nodemon.json
 tsconfig.json
 webpack.config.js
 serverless.yml
