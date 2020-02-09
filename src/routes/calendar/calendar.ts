@@ -21,7 +21,7 @@ export default class Calendar {
   }
 
   private static getBeginningLiturgicalYear(date: Date | moment.Moment): number {
-    let year = moment(date).year();
+    const year = moment(date).year();
     return Calendar.isTodayBeforeAdvent(date) ? year - 1 : year;
   }
 
@@ -141,7 +141,6 @@ export default class Calendar {
 
     // Find the optional day from the results (romcal doesn't support lookup for a specific day)
     if (config.day) {
-
       // On liturgical calendar, the year is the moment where a liturgical calendar start.
       // So if the provided date is before the first Sunday of Advent in the current civil year,
       // it means that must find the date in the year after
