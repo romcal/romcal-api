@@ -161,7 +161,7 @@ If the period key name doesn't exist, it will return an error (`404 NOT FOUND`).
 The available period key names are:
   - Official liturgical seasons: `advent`, `christmastide`, `ordinary-time`, `lent`, `easter-triduum`, `eastertide`.
   - Official liturgical periods and octaves: `christmas-octave`, `holy-week`, `easter-octave`.
-  - Non official periods, for convenient usage only: `early-ordinary-time`, `later-ordinary-time`, `pentecost-and-week-after`.
+  - Other periods, for convenient usage only: `early-ordinary-time`, `later-ordinary-time`.
 
 The `celebration-lookup` must be a celebration key name written in kebab case. **This feature is not fully supported yet.**
 The endpoint will lookup for a liturgical celebration (defined by its key name), and will return all the celebrations that occur for this liturgical date (within a specific year).

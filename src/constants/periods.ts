@@ -17,7 +17,6 @@ export default {
   'easter-triduum': [],
   eastertide: ['Easter'],
   'easter-octave': [],
-  'pentecost-and-week-after': [],
   'later-ordinary-time': ['Later Ordinary Time'],
   'ordinary-time': ['Early Ordinary Time', 'Later Ordinary Time'],
 };

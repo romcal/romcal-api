@@ -175,20 +175,6 @@ describe( `GET /calendar - Period`, () => {
     })
   );
 
-  it('Get the Pentecost and the week after within the 2020 civil year', async () => request(app())
-    .get('/calendar/general/en/2020-pentecost-and-week-after')
-    .set('Accept', 'application/json')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
-
-      expect(formatDate(firstDate)).toBe('2020-05-31');
-      expect(formatDate(lastDate)).toBe('2020-06-07');
-    })
-  );
-
   it('Get the season of Ordinary Time within the 2020 civil year', async () => request(app())
     .get('/calendar/general/en/2020-ordinary-time')
     .set('Accept', 'application/json')

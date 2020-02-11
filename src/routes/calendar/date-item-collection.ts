@@ -215,11 +215,6 @@ export default class DateItemCollection {
       easter = _.find(dates, { key: 'easter' });
     }
 
-    let pentecost;
-    if (period === 'pentecost-and-week-after') {
-      pentecost = _.find(dates, { key: 'pentecostSunday' });
-    }
-
     return DateItemCollection.filterDateItemsByCriteria(dates, (item) => {
       if (period === 'christmas-octave') {
         return moment(item.moment).isSameOrAfter(christmas.moment)
@@ -229,11 +224,6 @@ export default class DateItemCollection {
       if (period === 'easter-octave') {
         return moment(item.moment).isSameOrAfter(easter.moment)
           && moment(item.moment).isSameOrBefore(moment(easter.moment).add(7, 'day'));
-      }
-
-      if (period === 'pentecost-and-week-after') {
-        return moment(item.moment).isSameOrAfter(pentecost.moment)
-          && moment(item.moment).isSameOrBefore(moment(pentecost.moment).add(7, 'day'));
       }
 
       if (period === 'lent' && excludeFromLent.indexOf(item.key) > -1) return false;
