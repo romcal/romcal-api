@@ -153,12 +153,15 @@ However another [specific endpoint](#getLocales) is available to get the list of
 | For yesterday: | `GET /calendar/{name}/{locale}/yesterday`
 | For today: | `GET /calendar/{name}/{locale}/today`
 | For tomorrow: | `GET /calendar/{name}/{locale}/tomorrow`
-| For a specific liturgical season within a year: <br> _The `season` key is described below this table._ | `GET /calendar/{name}/{locale}/{YYYY-season}`
+| For a specific liturgical period within a year: <br> _The `period` key is described below this table._ | `GET /calendar/{name}/{locale}/{YYYY-period}`
 | For a date that matches a given liturgical celebration within a year: <br> _The `celebration-lookup` is described below this table.<br>Not fully supported yet_ | `GET /calendar/{name}/{locale}/{YYYY-celebration-lookup}` <br>&nbsp;
 
-The `season` key name must be written in kebab case.
-If the season key name doesn't exist, it will return an error (`404 NOT FOUND`).
-The available season key names are: `advent`, `christmastide`, `early-ordinary-time`, `lent`, `easter-triduum`, `easter-octave`, `eastertide`, `later-ordinary-time`, `ordinary-time`.
+The `period` key name must be written in kebab case.
+If the period key name doesn't exist, it will return an error (`404 NOT FOUND`).
+The available period key names are:
+  - Official liturgical seasons: `advent`, `christmastide`, `ordinary-time`, `lent`, `easter-triduum`, `eastertide`.
+  - Official liturgical periods and octaves: `christmas-octave`, `holy-week`, `easter-octave`.
+  - Non official periods, for convenient usage only: `early-ordinary-time`, `later-ordinary-time`, `pentecost-and-week-after`.
 
 The `celebration-lookup` must be a celebration key name written in kebab case. **This feature is not fully supported yet.**
 The endpoint will lookup for a liturgical celebration (defined by its key name), and will return all the celebrations that occur for this liturgical date (within a specific year).
@@ -250,7 +253,7 @@ Note: this step as well as tests are run automatically before releasing a new ve
 ## <a name="roadmap"></a> Roadmap (non-exclusive)
 
 - [ ] Add full API support for Calendars, Locales, Dates
-- [ ] Get dates within a custom range: between 2 dates (civil or liturgical date), or 2 seasons (the first day of the first season and the last day of the 2nd season)
+- [ ] Get dates within a custom range: between 2 dates (civil or liturgical date), or 2 periods (the first day of the first period and the last day of the 2nd period)
 - [ ] Replace Express by Fastify or Koa -> they are more modern (but still very mature), highly maintained and focus on speed.
 - [ ] Move to GraphQL (or support both REST API and GraphQL)
 - [ ] Support date offset to manage different time zones between clients and the back-end API
@@ -262,6 +265,7 @@ Note: this step as well as tests are run automatically before releasing a new ve
 
 ## History
 
+- 1.0.6 Calendar refactor and a lot of new tests added. Bug fixes.
 - 1.0.5 Add new calendar tests and fix bugs. Fix the nodemon debug mode.
 - 1.0.4 Add 404 error message on "Not found pages".
 - 1.0.3 Get romcal-api version from the API. Support optional parameters when using romcal-api through an Express middleware.

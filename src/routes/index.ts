@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import express from 'express';
 import defaultConfig from '../config';
-import Calendar from './calendar/calendar';
+import Calendar from './calendar';
 import Calendars from './calendars/calendars';
 import Locale from './locale/locale';
 import PageNotFound from './page-not-found/page-not-found';
