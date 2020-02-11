@@ -9,8 +9,8 @@ describe( `GET /calendar`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      expect(Array.isArray(res.body)).toBeTruthy();
-      res.body.forEach((str) => expect(typeof str).toBe('object'));
+      expect(Array.isArray(res.body.celebrations)).toBeTruthy();
+      res.body.celebrations.forEach((str) => expect(typeof str).toBe('object'));
     })
   );
 
@@ -20,12 +20,12 @@ describe( `GET /calendar`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let expectedKeys = ['moment', 'type', 'name', 'data', 'key', 'source'].sort();
+      let expectedKeys = ['date', 'type', 'name', 'data', 'key'].sort();
       let expectedDataKeys = ['season', 'meta', 'calendar'].sort();
-      let expectedMetaKeys = ['psalterWeek', 'liturgicalColor', 'cycle'].sort();
+      let expectedMetaKeys = ['psalterWeek', 'cycle'].sort();
 
-      res.body.forEach((item) => {
-        expect(Object.keys(item).sort()).toEqual(expectedKeys);
+      res.body.celebrations.forEach((item) => {
+        expect(Object.keys(item).sort()).toEqual(expect.arrayContaining(expectedKeys));
         expect(Object.keys(item.data).sort()).toEqual(expect.arrayContaining(expectedDataKeys));
         expect(Object.keys(item.data.meta).sort()).toEqual(expect.arrayContaining(expectedMetaKeys));
       });

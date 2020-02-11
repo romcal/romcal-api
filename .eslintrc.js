@@ -32,6 +32,7 @@ module.exports = {
         'ts': 'never',
         'tsx': 'never'
       }
-    ]
+    ],
+    'max-len': 120
   }
 };

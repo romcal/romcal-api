@@ -15,8 +15,8 @@ describe( `GET /calendar - Year`, () => {
     .expect(200)
     .expect(function(res) {
       let currentYear = new Date().getUTCFullYear();
-      let firstDate = moment(res.body[0].moment);
-      let lastDate = moment(res.body[res.body.length-1].moment);
+      let firstDate = moment(res.body.celebrations[0].date);
+      let lastDate = moment(res.body.celebrations[res.body.celebrations.length-1].date);
 
       expect(formatDate(firstDate)).toBe(`${currentYear}-01-01`);
       expect(formatDate(lastDate)).toBe(`${currentYear}-12-31`);
@@ -31,8 +31,8 @@ describe( `GET /calendar - Year`, () => {
     .expect(function(res) {
       let currentYear = new Date().getUTCFullYear();
       let today = new Date();
-      let firstDate = moment(res.body[0].moment);
-      let lastDate = moment(res.body[res.body.length-1].moment);
+      let firstDate = moment(res.body.celebrations[0].date);
+      let lastDate = moment(res.body.celebrations[res.body.celebrations.length-1].date);
 
       let firstSundayOfAdvent = Dates.firstSundayOfAdvent(currentYear);
       let isTodayBeforeAdvent = firstSundayOfAdvent.isSameOrAfter(today);
@@ -55,8 +55,8 @@ describe( `GET /calendar - Year`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = moment(res.body[0].moment);
-      let lastDate = moment(res.body[res.body.length-1].moment);
+      let firstDate = moment(res.body.celebrations[0].date);
+      let lastDate = moment(res.body.celebrations[res.body.celebrations.length-1].date);
 
       expect(formatDate(firstDate)).toBe('2025-11-30');
       expect(formatDate(lastDate)).toBe('2026-11-28');

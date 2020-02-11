@@ -5,7 +5,7 @@ export default class Utils {
   private static readonly dateRe = /^(?:(?<alias>yesterday|today|tomorrow)|(?:(?<year>\d{4})(?:-(?<key>[a-z-]+)|-(?:(?<month>\d{1,2})(?:-(?<day>\d{1,2}))?))?))$/i;
 
   static dateParams(date?: string): Object {
-    const params = date ? Utils.dateRe.exec(date.toLowerCase()) : { groups: {} };
+    const params = date ? (Utils.dateRe.exec(date.toLowerCase()) || { groups: {} }) : { groups: {} };
     return params.groups;
   }
 

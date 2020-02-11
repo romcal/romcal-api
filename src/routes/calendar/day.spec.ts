@@ -13,7 +13,7 @@ describe( `GET /calendar - Day`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let date = moment(res.body[0].moment);
+      let date = moment(res.body.celebrations[0].date);
       expect(formatDate(date)).toBe('2025-02-03');
     })
   );
@@ -24,7 +24,7 @@ describe( `GET /calendar - Day`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let date = moment(res.body[0].moment);
+      let date = moment(res.body.celebrations[0].date);
       expect(formatDate(date)).toBe('2025-11-30');
     })
   );
@@ -35,7 +35,7 @@ describe( `GET /calendar - Day`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let date = moment(res.body[0].moment);
+      let date = moment(res.body.celebrations[0].date);
       expect(formatDate(date)).toBe('2026-11-28');
     })
   );
@@ -50,7 +50,7 @@ describe( `GET /calendar - Day`, () => {
       // the API will try to find it the year after.
       // But the liturgical year for 2025-2026 is finishing 2026-11-28.
       // So in this liturgical year November 29 does't exist and romcal return an empty Array.
-      expect(res.body.length).toBe(0);
+      expect(res.body.celebrations.length).toBe(0);
     })
   );
 
@@ -60,7 +60,7 @@ describe( `GET /calendar - Day`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let date = moment(res.body[0].moment);
+      let date = moment(res.body.celebrations[0].date);
       let today = new Date();
       let year = today.getUTCFullYear();
       let month = (today.getUTCMonth() + 1).toString().padStart(2, '0');
@@ -76,7 +76,7 @@ describe( `GET /calendar - Day`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let date = moment(res.body[0].moment);
+      let date = moment(res.body.celebrations[0].date);
       let today = new Date();
       let year = today.getUTCFullYear();
       let month = (today.getUTCMonth() + 1).toString().padStart(2, '0');
@@ -92,7 +92,7 @@ describe( `GET /calendar - Day`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let date = moment(res.body[0].moment);
+      let date = moment(res.body.celebrations[0].date);
       let today = new Date();
       let year = today.getUTCFullYear();
       let month = (today.getUTCMonth() + 1).toString().padStart(2, '0');
@@ -108,7 +108,7 @@ describe( `GET /calendar - Day`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let date = moment(res.body[0].moment);
+      let date = moment(res.body.celebrations[0].date);
       let today = new Date();
       let year = today.getUTCFullYear();
       let month = (today.getUTCMonth() + 1).toString().padStart(2, '0');
@@ -124,7 +124,7 @@ describe( `GET /calendar - Day`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let date = moment(res.body[0].moment);
+      let date = moment(res.body.celebrations[0].date);
       let today = new Date();
       let year = today.getUTCFullYear();
       let month = (today.getUTCMonth() + 1).toString().padStart(2, '0');

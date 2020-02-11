@@ -3,6 +3,12 @@ import * as romcal from 'romcal';
 import moment from 'moment';
 import periods from '../../constants/periods';
 import Utils from './utils';
+// import RomcalConfig from '../../../node_modules/romcal/dist/lib/Config.js';
+
+type RomcalData = {
+  celebrations: Object[] | Object,
+  romcalConfig: Object
+};
 
 export default class DateItemCollection {
   day: number;
@@ -123,6 +129,24 @@ export default class DateItemCollection {
     };
   }
 
+  private getDatesFromRomcal(): RomcalData {
+    const romcalConfig = {}; // new RomcalConfig(this.config);
+    const celebrations = romcal.calendarFor(this.config);
+
+    // Remove private and unnecessary properties
+    // Todo: these properties should be removed by romcal
+    /* eslint no-underscore-dangle: ["error", { "allow": ["_id", "_stack"] }] */
+    celebrations.map((celebration) => {
+      const c = celebration;
+      delete c._id;
+      delete c._stack;
+      delete c.moment;
+      return c;
+    });
+
+    return { celebrations, romcalConfig };
+  }
+
   private getCurrentYear() {
     this.config.year = new Date().getUTCFullYear();
 
@@ -133,19 +157,19 @@ export default class DateItemCollection {
       this.config.year = Utils.getBeginningLiturgicalYear(new Date());
     }
 
-    return this.getYear();
+    return this.getDatesFromRomcal();
   }
 
   private getYear() {
-    return romcal.calendarFor(_.clone(this.config));
+    return this.getDatesFromRomcal();
   }
 
   private getMonth() {
-    return this.getYear();
+    return this.getDatesFromRomcal();
   }
 
   private getDate() {
-    const dates = this.getYear();
+    const cal = this.getDatesFromRomcal();
 
     // On liturgical calendar, the year is the moment where a liturgical calendar start.
     // So if the provided date is before the first Sunday of Advent in the current civil year,
@@ -157,7 +181,7 @@ export default class DateItemCollection {
     }
 
     // Find the optional day from the results (romcal doesn't support lookup for a specific day)
-    return DateItemCollection.filterDateItemsByCriteria(dates, (item) => moment(item.moment).isSame(date, 'day'));
+    return DateItemCollection.filterDateItemsByCriteria(cal, (item) => moment(item.date).isSame(date, 'day'));
   }
 
   private getAlias(date) {
@@ -199,7 +223,7 @@ export default class DateItemCollection {
       this.config.type = 'liturgical';
     }
 
-    const dates = this.getYear();
+    const cal = this.getDatesFromRomcal();
 
     // Todo: the Easter Triduum should be managed by romcal, and be excluded from the season of lent
     const excludeFromLent = ['goodFriday', 'holySaturday', 'easter'];
@@ -207,23 +231,23 @@ export default class DateItemCollection {
 
     let christmas;
     if (period === 'christmas-octave') {
-      christmas = _.find(dates, { key: 'christmas' });
+      christmas = _.find(cal.celebrations, { key: 'christmas' });
     }
 
     let easter;
     if (period === 'easter-octave') {
-      easter = _.find(dates, { key: 'easter' });
+      easter = _.find(cal.celebrations, { key: 'easter' });
     }
 
-    return DateItemCollection.filterDateItemsByCriteria(dates, (item) => {
+    return DateItemCollection.filterDateItemsByCriteria(cal, (item) => {
       if (period === 'christmas-octave') {
-        return moment(item.moment).isSameOrAfter(christmas.moment)
-          && moment(item.moment).isSameOrBefore(moment(christmas.moment).add(7, 'day'));
+        return moment(item.date).isSameOrAfter(christmas.date)
+          && moment(item.date).isSameOrBefore(moment(christmas.date).add(7, 'day'));
       }
 
       if (period === 'easter-octave') {
-        return moment(item.moment).isSameOrAfter(easter.moment)
-          && moment(item.moment).isSameOrBefore(moment(easter.moment).add(7, 'day'));
+        return moment(item.date).isSameOrAfter(easter.date)
+          && moment(item.date).isSameOrBefore(moment(easter.date).add(7, 'day'));
       }
 
       if (period === 'lent' && excludeFromLent.indexOf(item.key) > -1) return false;
@@ -235,17 +259,23 @@ export default class DateItemCollection {
 
   private getCelebrationLookup() {
     const celebration = this.key;
-    const dates = this.getYear();
-    return DateItemCollection.filterDateItemsByCriteria(dates, (item) => item.key === celebration);
+    const cal = this.getDatesFromRomcal();
+    return DateItemCollection.filterDateItemsByCriteria(cal, (item) => item.key === celebration);
   }
 
-  private static filterDateItemsByCriteria(dates: any, fn: Function): Object[] {
-    if (Array.isArray(dates)) return _.filter(dates, (item) => fn(item));
+  private static filterDateItemsByCriteria(cal: RomcalData, fn: Function): RomcalData {
+    const filteredCal = cal;
+
+    if (Array.isArray(cal.celebrations)) {
+      filteredCal.celebrations = _.filter(cal.celebrations, (item) => fn(item));
+      return filteredCal;
+    }
 
     // For grouped data, we need to filter in each groups
     // and only return groups that have items
-    return _(dates)
+    filteredCal.celebrations = _(cal.celebrations)
       .map((group, key) => ({ [key]: _.filter(group, (item) => fn(item)) }))
       .filter((group) => group[Object.keys(group)[0]].length);
+    return filteredCal;
   }
 }

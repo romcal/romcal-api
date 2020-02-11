@@ -13,8 +13,8 @@ describe( `GET /calendar - Month`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = moment(res.body[0].moment);
-      let lastDate = moment(res.body[res.body.length-1].moment);
+      let firstDate = moment(res.body.celebrations[0].date);
+      let lastDate = moment(res.body.celebrations[res.body.celebrations.length-1].date);
 
       expect(formatDate(firstDate)).toBe('2025-12-01');
       expect(formatDate(lastDate)).toBe('2025-12-31');
@@ -27,12 +27,12 @@ describe( `GET /calendar - Month`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2026-04-01');
       expect(formatDate(lastDate)).toBe('2026-04-30');
-      res.body.forEach(item => expect(moment(item.moment).month()).toBe(3));
+      res.body.celebrations.forEach(item => expect(moment(item.date).month()).toBe(3));
     })
   );
 
@@ -42,12 +42,12 @@ describe( `GET /calendar - Month`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = moment(res.body[0].moment);
-      let lastDate = moment(res.body[res.body.length-1].moment);
+      let firstDate = moment(res.body.celebrations[0].date);
+      let lastDate = moment(res.body.celebrations[res.body.celebrations.length-1].date);
 
       expect(formatDate(firstDate)).toBe('2025-11-30');
       expect(formatDate(lastDate)).toBe('2026-11-28');
-      res.body.forEach(item => expect(moment(item.moment).month()).toBe(10));
+      res.body.celebrations.forEach(item => expect(moment(item.date).month()).toBe(10));
     })
   );
 

@@ -135,7 +135,7 @@ Output an `Array` of locales keys, supported by romcal.
 
 - Get celebrations `GET /calendar/{name}/{locale}/{date}`
 
-Output an `Array` of celebrations ordered by date. For all endpoints:
+Output an `Object` where the `celebrations` property contains an `Array` of celebrations ordered by date. For all endpoints:
 
 - `{name}`: represent the name of the calendar, generally a country name. For example `italy`.
 If the calendar doesn't exist, romcal will return a `404 NOT FOUND`.
@@ -193,7 +193,7 @@ You can, of course, combine different filters. For example `/calendar/spain/es?w
 
 - `group=[string]`: Calendar dates can be grouped by various criteria upon invocation like so: `days`, `months`, `days-by-month`, `weeks-by-month`, `cycles`, `types`, `liturgical-seasons`, `liturgical-colors`, `psalter-weeks`.
 
-When using this parameter, romcal-api output first an `Object` where keys represent the grouped data.
+When using this parameter, the `celebrations` property will be an `Object` where keys represent the grouped data.
 If the criteria aren't recognized, romcap-api will return an error (`422 UNPROCESSABLE ENTRY`).
 
 ### <a name="getVersion"></a> Get the API version
@@ -265,6 +265,7 @@ Note: this step as well as tests are run automatically before releasing a new ve
 
 ## History
 
+- 1.1.0 Update romcal dependency. API change, the returned data is now an `Object` that contains the celebrations in a specific `celebrations` property. On each celebration, the `moment` property is renamed to `date`.
 - 1.0.6 Calendar refactor and a lot of new tests added. Bug fixes.
 - 1.0.5 Add new calendar tests and fix bugs. Fix the nodemon debug mode.
 - 1.0.4 Add 404 error message on "Not found pages".

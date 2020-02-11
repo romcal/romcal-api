@@ -13,8 +13,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2020-11-29');
       expect(formatDate(lastDate)).toBe('2020-12-24');
@@ -27,8 +27,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2020-11-29');
       expect(formatDate(lastDate)).toBe('2020-12-24');
@@ -41,8 +41,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2020-12-25');
       expect(formatDate(lastDate)).toBe('2021-01-10');
@@ -55,8 +55,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2020-12-25');
       expect(formatDate(lastDate)).toBe('2021-01-10');
@@ -69,8 +69,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2020-12-25');
       expect(formatDate(lastDate)).toBe('2021-01-01');
@@ -83,8 +83,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2020-02-26');
       expect(formatDate(lastDate)).toBe('2020-04-09');
@@ -97,8 +97,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2021-02-17');
       expect(formatDate(lastDate)).toBe('2021-04-01');
@@ -111,8 +111,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2021-03-28');
       expect(formatDate(lastDate)).toBe('2021-04-03');
@@ -125,8 +125,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2020-04-09');
       expect(formatDate(lastDate)).toBe('2020-04-12');
@@ -139,8 +139,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2020-04-12');
       expect(formatDate(lastDate)).toBe('2020-04-19');
@@ -153,8 +153,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2020-04-12');
       expect(formatDate(lastDate)).toBe('2020-05-31');
@@ -167,8 +167,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2020-04-12');
       expect(formatDate(lastDate)).toBe('2020-05-31');
@@ -181,8 +181,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2020-01-13');
       expect(formatDate(lastDate)).toBe('2020-11-28');
@@ -195,8 +195,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2021-01-11');
       expect(formatDate(lastDate)).toBe('2021-02-16');
@@ -209,8 +209,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2021-05-24');
       expect(formatDate(lastDate)).toBe('2021-11-27');
@@ -223,8 +223,8 @@ describe( `GET /calendar - Period`, () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect(function(res) {
-      let firstDate = res.body[0].moment;
-      let lastDate = res.body[res.body.length-1].moment;
+      let firstDate = res.body.celebrations[0].date;
+      let lastDate = res.body.celebrations[res.body.celebrations.length-1].date;
 
       expect(formatDate(firstDate)).toBe('2021-01-11');
       expect(formatDate(lastDate)).toBe('2021-11-27');
