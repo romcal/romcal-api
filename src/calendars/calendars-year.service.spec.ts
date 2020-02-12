@@ -17,7 +17,7 @@ describe('CalendarsService - Year', () => {
     service = module.get<CalendarsService>(CalendarsService);
   });
 
-  it('Get the current civil year', () => {
+  it('Get the current civil year', async () => {
     const data = service.getCurrentYear({});
     const currentYear = new Date().getUTCFullYear();
     const firstDate = moment(data.celebrations[0].date);
@@ -27,7 +27,7 @@ describe('CalendarsService - Year', () => {
     expect(formatDate(lastDate)).toBe(`${currentYear}-12-31`);
   });
 
-  it('Get the current liturgical year', () => {
+  it('Get the current liturgical year', async () => {
     const data = service.getCurrentYear({ isLiturgical: true });
     let currentYear = new Date().getUTCFullYear();
     const today = new Date();
