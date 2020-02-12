@@ -1,38 +1,29 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: [
-    '@typescript-eslint'
+  parserOptions: {
+    project: 'tsconfig.json',
+    sourceType: 'module',
+  },
+  plugins: ['@typescript-eslint/eslint-plugin'],
+  extends: [
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+    'prettier/@typescript-eslint',
   ],
-  extends: 'airbnb-base',
-  settings: {
-    'import/extensions': ['.js','.jsx','.ts','.tsx'],
-    'import/parsers': {
-      '@typescript-eslint/parser': ['.ts','.tsx']
-    },
-    'import/resolver': {
-      'node': {
-        'extensions': ['.js','.jsx','.ts','.tsx']
-      }
-    }
+  root: true,
+  env: {
+    node: true,
+    jest: true,
   },
   rules: {
-    'padded-blocks': ['error', {
-      blocks: 'never',
-      classes: 'never',
-      switches: 'never',
-    }, {
-      allowSingleLineBlocks: true,
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    'max-len': ["error", {
+      "code": 120,
+      "comments": 100,
+      "ignoreRegExpLiterals": true,
     }],
-    'import/extensions': [
-      'error',
-      'ignorePackages',
-      {
-        'js': 'never',
-        'jsx': 'never',
-        'ts': 'never',
-        'tsx': 'never'
-      }
-    ],
-    'max-len': 120
-  }
+  },
 };

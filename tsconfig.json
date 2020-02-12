@@ -1,27 +1,17 @@
 {
   "compilerOptions": {
-    "lib": ["es2017", "es2018"],
+    "module": "commonjs",
+    "declaration": true,
     "removeComments": true,
-    "moduleResolution": "node",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "sourceMap": true,
-    "baseUrl": "./",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "target": "es2017",
-    "outDir": "lib",
-    "resolveJsonModule": true,
-    "esModuleInterop": true
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+	"resolveJsonModule": true,
+	"esModuleInterop": true
   },
-  "include": ["./**/*.ts"],
-  "exclude": [
-    "./src/**/*.spec.ts",
-    "./src/**/*.test.ts",
-    "node_modules/**/*",
-    ".serverless/**/*",
-    ".webpack/**/*",
-    "dist/**/*",
-    "_warmup/**/*",
-    ".vscode/**/*",
-    ".idea/**/*"
-  ]
+  "exclude": ["node_modules", "dist"]
 }

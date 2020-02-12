@@ -133,7 +133,7 @@ Output an `Array` of locales keys, supported by romcal.
 
 ### <a name="getCalendar"></a> Get calendar data
 
-- Get celebrations `GET /calendar/{name}/{locale}/{date}`
+- Get celebrations `GET /calendars/{name}/{locale}/{date}`
 
 Output an `Object` where the `celebrations` property contains an `Array` of celebrations ordered by date. For all endpoints:
 
@@ -146,15 +146,15 @@ However another [specific endpoint](#getLocales) is available to get the list of
 
 | `{date}`: Get celebrations... | Endpoint
 |---|---
-| For the current year: | `GET /calendar/{name}/{locale}`
-| For a specific year: | `GET /calendar/{name}/{locale}/{YYYY}`
-| For a specific month within a year: | `GET /calendar/{name}/{locale}/{YYYY-MM}`
-| For a specific date: | `GET /calendar/{name}/{locale}/{YYYY-MM-DD}`
-| For yesterday: | `GET /calendar/{name}/{locale}/yesterday`
-| For today: | `GET /calendar/{name}/{locale}/today`
-| For tomorrow: | `GET /calendar/{name}/{locale}/tomorrow`
-| For a specific liturgical period within a year: <br> _The `period` key is described below this table._ | `GET /calendar/{name}/{locale}/{YYYY-period}`
-| For a date that matches a given liturgical celebration within a year: <br> _The `celebration-lookup` is described below this table.<br>Not fully supported yet_ | `GET /calendar/{name}/{locale}/{YYYY-celebration-lookup}` <br>&nbsp;
+| For the current year: | `GET /calendars/{name}/{locale}`
+| For a specific year: | `GET /calendars/{name}/{locale}/{YYYY}`
+| For a specific month within a year: | `GET /calendars/{name}/{locale}/{YYYY-MM}`
+| For a specific date: | `GET /calendars/{name}/{locale}/{YYYY-MM-DD}`
+| For yesterday: | `GET /calendars/{name}/{locale}/yesterday`
+| For today: | `GET /calendars/{name}/{locale}/today`
+| For tomorrow: | `GET /calendars/{name}/{locale}/tomorrow`
+| For a specific liturgical period within a year: <br> _The `period` key is described below this table._ | `GET /calendars/{name}/{locale}/{YYYY-period}`
+| For a date that matches a given liturgical celebration within a year: <br> _The `celebration-lookup` is described below this table.<br>Not fully supported yet_ | `GET /calendars/{name}/{locale}/{YYYY-celebration-lookup}` <br>&nbsp;
 
 The `period` key name must be written in kebab case.
 If the period key name doesn't exist, it will return an error (`404 NOT FOUND`).
@@ -176,9 +176,9 @@ When dates are computed within a liturgical period, `year` corresponds to the ye
 
 #### → Some examples
 
-- `/calendar/france/fr` return an array of dates from 1 January to 31 December of the current year.
-- `/calendar/poland/pl?type=liturgical` return an array of date from the 1st Sunday of Advent to the last Saturday of Ordinary Time of the current liturgical year.
-- `/calendar/canada/en/2018-12?type=liturgical` return an array of dates from December 2, 2018 (which is the first day of the liturgical year for 2018-2019) to December 31, 2018.
+- `/calendars/france/fr` return an array of dates from 1 January to 31 December of the current year.
+- `/calendars/poland/pl?type=liturgical` return an array of date from the 1st Sunday of Advent to the last Saturday of Ordinary Time of the current liturgical year.
+- `/calendars/canada/en/2018-12?type=liturgical` return an array of dates from December 2, 2018 (which is the first day of the liturgical year for 2018-2019) to December 31, 2018.
 
 #### → Filtering results
 
@@ -187,7 +187,7 @@ Theses optional query strings are available for filtering data directly from the
 - `weekday=[int]`: Filter the results on a specific weekday. `0` is Sunday, `6` is Saturday. For example `?weekday=0`.
 - `title=[string]`: Filter the results on a specific celebration title. The title needs to be in kebab-case. For example `?title=patron-of-europe`.
 
-You can, of course, combine different filters. For example `/calendar/spain/es?weekday=4&title=martyr`
+You can, of course, combine different filters. For example `/calendars/spain/es?weekday=4&title=martyr`
 
 #### → Group results by criteria
 
@@ -252,10 +252,8 @@ Note: this step as well as tests are run automatically before releasing a new ve
 
 ## <a name="roadmap"></a> Roadmap (non-exclusive)
 
-- [ ] Add full API support for Calendars, Locales, Dates
 - [ ] Get dates within a custom range: between 2 dates (civil or liturgical date), or 2 periods (the first day of the first period and the last day of the 2nd period)
-- [ ] Replace Express by Fastify or Koa -> they are more modern (but still very mature), highly maintained and focus on speed.
-- [ ] Move to GraphQL (or support both REST API and GraphQL)
+- [ ] Support GraphQL
 - [ ] Support date offset to manage different time zones between clients and the back-end API
 - [ ] Support Docker
 - [ ] More tests
@@ -265,6 +263,7 @@ Note: this step as well as tests are run automatically before releasing a new ve
 
 ## History
 
+- 1.2.0 Upgrade the codebase to use the Nest.js framework. Update the Rest API (please check the documentation).
 - 1.1.0 Update romcal dependency. API change, the returned data is now an `Object` that contains the celebrations in a specific `celebrations` property. On each celebration, the `moment` property is renamed to `date`.
 - 1.0.6 Calendar refactor and a lot of new tests added. Bug fixes.
 - 1.0.5 Add new calendar tests and fix bugs. Fix the nodemon debug mode.
