@@ -50,6 +50,10 @@ export class CalendarsService {
 
   getDate(options: options) {
     const cal = CalendarsService.getDatesFromRomcal(options);
+    const today = new Date();
+    if (!options.year) options.year = today.getUTCFullYear();
+    if (!options.month) options.month = today.getUTCMonth();
+    if (!options.day) options.day = today.getUTCDate();
 
     // On liturgical calendar, the year is the moment where a liturgical calendar start.
     // So if the provided date is before the first Sunday of Advent in the current civil year,
@@ -81,7 +85,7 @@ export class CalendarsService {
   }
 
   getPeriod(options: options) {
-    const period = options.key;
+    const period = options.key || '';
     const criteria = PERIODS[period];
 
     // Christmastide and its sub period christmas-octave stands between two years.

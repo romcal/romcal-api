@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CalendarsService } from './calendars.service';
 

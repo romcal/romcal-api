@@ -1,4 +1,5 @@
 # compiled output
+/.serverless
 /dist
 /node_modules
 

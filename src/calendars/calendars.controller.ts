@@ -34,20 +34,14 @@ export class CalendarsController {
     if (options.weekday) options.weekday = parseInt(options.weekday, 10);
     delete options.date;
 
-    // Calendar missing or not found
+    // Calendar not found
     if (romcal.Countries.indexOf(options.name) === -1) {
-      if (!options.name) {
-        throw new HttpException(
-          'Calendar name is required. For example: /calendars/france/fr',
-          HttpStatus.UNPROCESSABLE_ENTITY,
-        );
-      }
-      throw new HttpException(`Calendar not found: ${options.name}.`, HttpStatus.NOT_FOUND);
+      throw new HttpException(`Calendar not found: "${options.name}".`, HttpStatus.NOT_FOUND);
     }
 
     // Locale missing
     if (!options.locale) {
-      throw new HttpException('Locale is required. For example: /calendars/france/fr', HttpStatus.UNPROCESSABLE_ENTITY);
+      options.locale = 'en';
     }
 
     // Get the current year:
