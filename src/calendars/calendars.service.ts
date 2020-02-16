@@ -2,7 +2,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import * as romcal from 'romcal';
 import { Injectable } from '@nestjs/common';
-import { PERIODS } from '../constants';
+import { PERIODS } from '../_const/periods';
 
 type Celebrations = {
   celebrations: any[] | any;
@@ -34,22 +34,22 @@ export class CalendarsService {
     // If today is before the first Sunday of Advent (within the current civil year),
     // then the reference liturgical year was starting last year
     if (options.isLiturgical) {
-      options.year = CalendarsService.getBeginningLiturgicalYear(new Date());
+      options.year = CalendarsService._getBeginningLiturgicalYear(new Date());
     }
 
-    return CalendarsService.getDatesFromRomcal(options);
+    return CalendarsService._getDatesFromRomcal(options);
   }
 
   getYear(options: options) {
-    return CalendarsService.getDatesFromRomcal(options);
+    return CalendarsService._getDatesFromRomcal(options);
   }
 
   getMonth(options: options) {
-    return CalendarsService.getDatesFromRomcal(options);
+    return CalendarsService._getDatesFromRomcal(options);
   }
 
   getDate(options: options) {
-    const cal = CalendarsService.getDatesFromRomcal(options);
+    const cal = CalendarsService._getDatesFromRomcal(options);
     const today = new Date();
     if (!options.year) options.year = today.getUTCFullYear();
     if (!options.month) options.month = today.getUTCMonth();
@@ -60,28 +60,28 @@ export class CalendarsService {
     // it means that must find the date in the year after
     let date = new Date(Date.UTC(options.year, options.month, options.day));
     if (options.isLiturgical) {
-      const year = CalendarsService.isDateBeforeAdvent(date) ? options.year + 1 : options.year;
+      const year = CalendarsService._isDateBeforeAdvent(date) ? options.year + 1 : options.year;
       date = new Date(Date.UTC(year, options.month, options.day));
     }
 
     // Find the optional day from the results (romcal doesn't support lookup for a specific day)
-    return this.filterDateItemsByCriteria(cal, item => moment(item.date).isSame(date, 'day'));
+    return this._filterDateItemsByCriteria(cal, item => moment(item.date).isSame(date, 'day'));
   }
 
   getYesterday(options?: options) {
     let date = new Date();
     date = new Date(date.setUTCDate(date.getUTCDate() - 1));
-    return this.getAlias(date, options);
+    return this._getAlias(date, options);
   }
 
   getToday(options?: options) {
-    return this.getAlias(new Date(), options);
+    return this._getAlias(new Date(), options);
   }
 
   getTomorrow(options?: options) {
     let date = new Date();
     date = new Date(date.setUTCDate(date.getUTCDate() + 1));
-    return this.getAlias(date, options);
+    return this._getAlias(date, options);
   }
 
   getPeriod(options: options) {
@@ -95,7 +95,7 @@ export class CalendarsService {
       options.isLiturgical = true;
     }
 
-    const cal = CalendarsService.getDatesFromRomcal(options);
+    const cal = CalendarsService._getDatesFromRomcal(options);
 
     // Todo: the Easter Triduum should be managed by romcal, and be excluded from the season of lent
     const excludeFromLent = ['goodFriday', 'holySaturday', 'easter'];
@@ -111,7 +111,7 @@ export class CalendarsService {
       easter = _.find(cal.celebrations, { key: 'easter' });
     }
 
-    return this.filterDateItemsByCriteria(cal, item => {
+    return this._filterDateItemsByCriteria(cal, item => {
       if (period === 'christmas-octave') {
         return (
           moment(item.date).isSameOrAfter(christmas.date) &&
@@ -135,11 +135,11 @@ export class CalendarsService {
 
   getCelebrationLookup(options: options) {
     const celebration = options.key;
-    const cal = CalendarsService.getDatesFromRomcal(options);
-    return this.filterDateItemsByCriteria(cal, item => item.key === celebration);
+    const cal = CalendarsService._getDatesFromRomcal(options);
+    return this._filterDateItemsByCriteria(cal, item => item.key === celebration);
   }
 
-  private getAlias(date, options?: options) {
+  private _getAlias(date, options?: options) {
     options = options || {};
     // For a convenient way to get the right date from romcal,
     // the calendar type must be civil instead of liturgical.
@@ -152,7 +152,7 @@ export class CalendarsService {
     return this.getDate(options);
   }
 
-  private filterDateItemsByCriteria(cal: Celebrations, fn: Function): Celebrations {
+  private _filterDateItemsByCriteria(cal: Celebrations, fn: Function): Celebrations {
     const filteredCal = cal;
 
     if (Array.isArray(cal.celebrations)) {
@@ -168,7 +168,7 @@ export class CalendarsService {
     return filteredCal;
   }
 
-  private static getDatesFromRomcal(options: options): Celebrations {
+  private static _getDatesFromRomcal(options: options): Celebrations {
     const config: any = { query: {} };
 
     config.country = options.name;
@@ -197,14 +197,14 @@ export class CalendarsService {
     return { celebrations };
   }
 
-  private static isDateBeforeAdvent(date: Date | moment.Moment): boolean {
+  private static _isDateBeforeAdvent(date: Date | moment.Moment): boolean {
     const day = moment(date);
     const firstSundayOfAdvent = romcal.Dates.firstSundayOfAdvent(day.year());
     return day.isBefore(firstSundayOfAdvent);
   }
 
-  private static getBeginningLiturgicalYear(date: Date | moment.Moment): number {
+  private static _getBeginningLiturgicalYear(date: Date | moment.Moment): number {
     const year = moment(date).year();
-    return CalendarsService.isDateBeforeAdvent(date) ? year - 1 : year;
+    return CalendarsService._isDateBeforeAdvent(date) ? year - 1 : year;
   }
 }

@@ -91,7 +91,7 @@ With romcal-api installed, add the application code in the `handler.js`:
 // handler.js
 
 const romcalAPI = require('romcal-api');
-module.exports.romcalAPI = romcalAPI.handler;
+module.exports.romcalHandler = romcalAPI.handler;
 ```
 
 Sample settings and romcal function to add in the `serverless.yml`:
@@ -103,8 +103,8 @@ provider:
   runtime: nodejs12.x
 
 functions:
-  app:
-    handler: handler.romcalAPI
+  romcal:
+    handler: handler.romcalHandler
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'

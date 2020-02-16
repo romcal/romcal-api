@@ -2,13 +2,13 @@ import _ from 'lodash';
 import * as romcal from 'romcal';
 import { Controller, Get, HttpException, HttpStatus, Param, Query } from '@nestjs/common';
 import { CalendarsService } from './calendars.service';
-import { PERIODS } from '../constants';
+import { PERIODS } from '../_const/periods';
 
 @Controller('calendars')
 export class CalendarsController {
   constructor(private readonly calendarsService: CalendarsService) {}
 
-  private readonly dateRe = /^(?:(?<alias>yesterday|today|tomorrow)|(?:(?<year>\d{4})(?:-(?<key>[a-z-]+)|-(?:(?<month>\d{1,2})(?:-(?<day>\d{1,2}))?))?))$/i;
+  private readonly _dateRe = /^(?:(?<alias>yesterday|today|tomorrow)|(?:(?<year>\d{4})(?:-(?<key>[a-z-]+)|-(?:(?<month>\d{1,2})(?:-(?<day>\d{1,2}))?))?))$/i;
 
   @Get()
   async getAllCalendars() {
@@ -20,7 +20,7 @@ export class CalendarsController {
     const options = {
       ...params,
       ...query,
-      ...this.getDateParams(params.date),
+      ...this._getDateParams(params.date),
     };
 
     if (options.date && !options.year && !options.key && !options.alias) {
@@ -106,8 +106,8 @@ export class CalendarsController {
     throw new HttpException('Date format is invalid.', HttpStatus.UNPROCESSABLE_ENTITY);
   }
 
-  private getDateParams(date?: string) {
-    const params = date ? this.dateRe.exec(date.toLowerCase()) || { groups: {} } : { groups: {} };
+  private _getDateParams(date?: string) {
+    const params = date ? this._dateRe.exec(date.toLowerCase()) || { groups: {} } : { groups: {} };
     return params.groups;
   }
 }

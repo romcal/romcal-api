@@ -31,8 +31,8 @@ provider:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
 
 functions:
-  app:
-    handler: dist/src/lambda.handler
+  romcal:
+    handler: dist/src/index.handler
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'
