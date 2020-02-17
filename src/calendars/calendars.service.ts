@@ -2,7 +2,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import * as romcal from 'romcal';
 import { Injectable } from '@nestjs/common';
-import { PERIODS } from '../_const/periods';
+import { PERIODS } from '../constants/periods';
 
 type Celebrations = {
   celebrations: any[] | any;

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import * as romcal from 'romcal';
 import { Controller, Get, HttpException, HttpStatus, Param, Query } from '@nestjs/common';
 import { CalendarsService } from './calendars.service';
-import { PERIODS } from '../_const/periods';
+import { PERIODS } from '../constants/periods';
 
 @Controller('calendars')
 export class CalendarsController {
