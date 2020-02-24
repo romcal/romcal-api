@@ -19,13 +19,13 @@
 </p>
 
 - [Usage](#usage):
-  - [As an express middleware](#middleware)
-  - [Through the serverless framework](#serverless)
-- [API](#api):
-  - [List all available calendars](#getCalendars)
-  - [List all supported locales](#getLocales)
-  - [Get calendar data](#getCalendar)
-  - [Get the API version](#getVersion)
+  - [As an Express middleware](#express-middleware)
+  - [As an AWS Lambda (through the serverless framework)](#lambda)
+- [REST API](#rest-api):
+  - [Locales](#rest-api-celebrations)
+  - [Calendars](#rest-api-calendars)
+  - [Locales](#rest-api-locales)
+  - [Version](#rest-api-version)
 - [Contribute](#contribute)
 - [Roadmap](#roadmap)
 
@@ -33,7 +33,7 @@ If you are looking to use romcal as a Node.js dependency without Express, or as 
 
 ## Usage
 
-### <a name="middleware"></a> → As an Express middleware
+### <a name="express-middleware"></a> → As an Express middleware
 
 Actually only Express is supported. More frameworks might be supported in the future.
 
@@ -63,9 +63,9 @@ app.listen(PORT, () => {
 $ node index.js
 ```
 
-### <a name="serverless"></a> → Through the Serverless framework
+### <a name="lambda"></a> → As an AWS Lambda (through the serverless framework)
 
-Actually only AWS Lambda is supported. More providers might be supported in the future.
+Actually only AWS Lambda is supported.
 
 To get started, you'll need the [Serverless Framework](https://serverless.com/framework/docs/providers/aws/guide/quick-start/) installed.
 You'll also need your environment configured with [AWS credentials](https://serverless.com/framework/docs/providers/aws/guide/credentials/).
@@ -115,93 +115,97 @@ When everything is set up, romcal-api is ready to be deployed:
 $ sls deploy
 ```
 
-## API
+## <a name="rest-api"></a> REST API
 
+Rest API are documented here: [romcal.github.io/romcal-api/](https://romcal.github.io/romcal-api/).
 You can use tools like [Postman](https://www.getpostman.com/) to play with the API.
 
-### <a name="getCalendars"></a> Get all available calendars
+Below a list of the available APIs. Click on the corresponding links for more informations.
 
-- Get all calendars `GET /calendars`
+### <a name="rest-api-celebrations"></a> Celebrations
 
-Output an `Array` of calendar names, supported by romcal.
+#### → [For a specific year, month or date](https://romcal.github.io/romcal-api/#api-Celebrations-getCelebrations)
 
-### <a name="getLocales"></a> Get all supported locales
+> Get the calendars over a whole year (civil or liturgical), or for a specific month or a date within a year.
+>
+> ```
+> GET /calendars/:name/:locale?/:year?/:month?/:day?
+> ```
 
-- Get all locales `GET /locales`
+#### → [For yesterday](https://romcal.github.io/romcal-api/#api-Celebrations-getYesterday)
 
-Output an `Array` of locales keys, supported by romcal.
+> Get all the calendars that took place yesterday.
+>
+> ```
+> GET /calendars/:name/:locale/yesterday
+> ```
 
-### <a name="getCalendar"></a> Get calendar data
+#### → [For today](https://romcal.github.io/romcal-api/#api-Celebrations-getToday)
 
-### <a name="getCalendar"></a> Get the celebrations over a specific period
+> Get all the calendars taking place today.
+>
+> ```
+> GET /calendars/:name/:locale/today
+> ```
 
-Output an `Object` where the `celebrations` property contains an `Array` of celebrations ordered by date. For all endpoints:
+#### → [For tomorrow](https://romcal.github.io/romcal-api/#api-Celebrations-getTomorrow)
 
-- `{name}`: represent the name of the calendar, generally a country name. For example `italy`.
-If the calendar doesn't exist, romcal will return a `404 NOT FOUND`.
-- `{locale}`: represent the locale used to retrieve data. For example `it`.
-If the locale doesn't exist, romcal will fall back to the default `en` locale.
-However another [specific endpoint](#getLocales) is available to get the list of supported locales by romcal.
-- `{date}` (optional): scope the returned data to a specific period or date.
+> Get all the calendars that will take place tomorrow.
+>
+> ```
+> GET /calendars/:name/:locale/tomorrow
+> ```
 
-| `{date}`: Get celebrations... | Endpoint
-|---|---
-| For the current civil year: | `GET /calendars/{name}/{locale}`
-| For a specific civil year: | `GET /calendars/{name}/{locale}/{YYYY}`
-| For a specific liturgical year: | `GET /calendars/{name}/{locale}/{YYYY-YYYY}`
-| For a specific month within a year: | `GET /calendars/{name}/{locale}/{YYYY}/{MM}`
-| For a specific date: | `GET /calendars/{name}/{locale}/{YYYY}/{MM}/{DD}`
-| For yesterday: | `GET /calendars/{name}/{locale}/yesterday`
-| For today: | `GET /calendars/{name}/{locale}/today`
-| For tomorrow: | `GET /calendars/{name}/{locale}/tomorrow`
-| For a specific liturgical period within a year: <br> _The `period` key is described below this table._ | `GET /calendars/{name}/{locale}/{YYYY}/pediod/{period}`
-| For a date that matches a given liturgical celebration within a year: <br> _The `celebration-lookup` is described below this table.<br>Not fully supported yet_ | `GET /calendars/{name}/{locale}/{YYYY}/lookup/{celebration-lookup}` <br>&nbsp;
+#### → [For a specific liturgical period or season](https://romcal.github.io/romcal-api/#api-Celebrations-getPeriod)
 
-The `period` key name must be written in kebab case.
-If the period key name doesn't exist, it will return an error (`404 NOT FOUND`).
-The available period key names are:
-  - Official liturgical seasons: `advent`, `christmastide`, `ordinary-time`, `lent`, `easter-triduum`, `eastertide`.
-  - Official liturgical periods and octaves: `christmas-octave`, `holy-week`, `easter-octave`.
-  - Other periods, for convenient usage only: `early-ordinary-time`, `later-ordinary-time`.
+> Get a collection of calendars that match the specified liturgical period. The period is generally a season or a an octave.
+>
+> ```
+> GET /calendars/:name/:locale/:year/period/:period
+> ```
+>
+> The available period key names are:
+>   - Official liturgical seasons: `advent`, `christmastide`, `ordinary-time`, `lent`, `easter-triduum`, `eastertide`.
+>   - Official liturgical periods and octaves: `christmas-octave`, `holy-week`, `easter-octave`.
+>   - Other periods, for convenient usage only: `early-ordinary-time`, `later-ordinary-time`.
 
-The `celebration-lookup` must be a celebration key name written in kebab case. **This feature is not fully supported yet.**
-The endpoint will lookup for a liturgical celebration (defined by its key name), and will return all the celebrations that occur for this liturgical date (within a specific year).
-The celebration with the provided key name might not be not output if this celebration has been replaced by another celebration with a higher rank.
-If the celebration key name doesn't exist in romcal for a particular calendar, it will return an error (`404 NOT FOUND`).
+#### → [Lookup from a celebration](https://romcal.github.io/romcal-api/#api-Celebrations-getCelebrationLookup)
 
-#### → Civil Year vs. Liturgical Year
+> This feature is not fully supported yet. The endpoint will lookup for a liturgical celebration (defined by its key name), and will return all the calendars that occur for this liturgical date (within the given year). The celebration with the provided key name may not be output if this celebration has been replaced by another celebration with a higher rank. If the celebration key name doesn't exist in romcal for a particular calendar, it will return an error.
+>
+> ```
+> GET /calendars/:name/:locale/:year/lookup/:lookup
+> ```
 
-By default, each period is computed within a **civil year** (from 1 January to 31 December of the given year).
-To get dates computed within a **liturgical year**, you need to specify `calendar=liturgical` as a URL parameter.
-When dates are computed within a liturgical period, `year` corresponds to the year in which the liturgical year began.
+### <a name="rest-api-calendars"></a> Calendars
 
-#### → Some examples
+#### → [All supported locales](https://romcal.github.io/romcal-api/#api-Calendars-getAllCalendars)
 
-- `/calendars/france/fr` return an array of dates from 1 January to 31 December of the current year.
-- `/calendars/poland/pl?type=liturgical` return an array of date from the 1st Sunday of Advent to the last Saturday of Ordinary Time of the current liturgical year.
-- `/calendars/canada/en/2018-12?type=liturgical` return an array of dates from December 2, 2018 (which is the first day of the liturgical year for 2018-2019) to December 31, 2018.
+> List the name of all calendars available from romcal.
+>
+> ```
+> GET /calendars
+> ```
 
-#### → Filtering results
+### <a name="rest-api-locales"></a> Locales
 
-Theses optional query strings are available for filtering data directly from the server:
+#### → [All supported locales](https://romcal.github.io/romcal-api/#api-Locales-getAllLocales)
 
-- `weekday=[int]`: Filter the results on a specific weekday. `0` is Sunday, `6` is Saturday. For example `?weekday=0`.
-- `title=[string]`: Filter the results on a specific celebration title. The title needs to be in kebab-case. For example `?title=patron-of-europe`.
+> Get the locale codes of all supported locales by romcal.
+>
+> ```shell script
+> GET /locales
+> ```
 
-You can, of course, combine different filters. For example `/calendars/spain/es?weekday=4&title=martyr`
+### <a name="rest-api-version"></a> Version
 
-#### → Group results by criteria
+#### → [Get API version](https://romcal.github.io/romcal-api/#api-Version-getVersion)
 
-- `group=[string]`: Calendar dates can be grouped by various criteria upon invocation like so: `days`, `months`, `days-by-month`, `weeks-by-month`, `cycles`, `types`, `liturgical-seasons`, `liturgical-colors`, `psalter-weeks`.
-
-When using this parameter, the `celebrations` property will be an `Object` where keys represent the grouped data.
-If the criteria aren't recognized, romcap-api will return an error (`422 UNPROCESSABLE ENTRY`).
-
-### <a name="getVersion"></a> Get the API version
-
-- Get version `GET /version`
-
-Output an `Object` containing the version of romcal-api, and the version of [romcal](https://github.com/romcal/romcal) on which this project is based.
+> Get the version of romcal and romcal-api.
+>
+> ```
+> GET /version
+> ```
 
 ## <a name="contribute"></a> Contribute: make romcal-api better
 
@@ -227,7 +231,7 @@ $ npm start
 
 Or if you have [Serverless](https://serverless.com/framework/docs/providers/aws/guide/quick-start/) installed on your machine, you can start romcal-api locally in an [AWS λ](https://aws.amazon.com/lambda) and [API Gateway](https://aws.amazon.com/api-gateway) emulator:
 ```
-$ sls offline start
+$ npm run offline
 ```
 
 #### → Run tests
