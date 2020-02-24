@@ -1,16 +1,36 @@
-# package directories and files
-node_modules
-jspm_packages
-npm-debug.log
-dist
+# compiled output
+/.serverless
+/dist
+/node_modules
 
-# Serverless directories
-.serverless
-dist
-
-# Webpack directories
-.webpack
-
-# Others
-**.DS_Store**
+# Logs
+logs
+*.log
 .eslintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+
+# Tests
+/coverage
+/.nyc_output
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json

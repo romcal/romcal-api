@@ -1,44 +1,49 @@
 service: romcal-api
 
+# app and org for use with dashboard.serverless.com
+app: romcal-api
+org: emagnier
+
+
+
+plugins:
+  - serverless-offline
+
+package:
+  exclude:
+    - .git/**
+    - .idea/**
+    - docs/**
+    - src/**
+    - test/**
+    - coverage/**
+    - .*
+    - nest-cli.json
+    - README.md
+    - tsconfig.*
+    - apidoc.json
+    - nodemon.json
+    - webpack.config.js
+  include:
+    - dist/*.js
+    - dist/*.js.map
+    - dist/**/*.js
+    - dist/**/*.js.map
+
 provider:
   name: aws
   runtime: nodejs12.x
   stage: dev
+  memory: 128
+  region: eu-west-3
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
 
 functions:
-  app:
-    handler: src/index.handler
+  romcal:
+    handler: dist/src/main.handler
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'
-
-  # Optional: Each function instance below will have the same code, but they'll be segmented for metrics purposes.
-  getCalendar:
-    handler: src/index.handler
-    events:
-      - http: 'GET /calendar/{proxy+}'
-  getLiturgicalCalendar:
-    handler: src/index.handler
-    events:
-      - http: 'GET /liturgical-calendar/{proxy+}'
-  getCalendars:
-    handler: src/index.handler
-    events:
-      - http: 'GET /calendars'
-  getLocales:
-    handler: src/index.handler
-    events:
-      - http: 'GET /locales'
-
-plugins:
-  - serverless-webpack
-  - serverless-offline
-
-custom:
-  webpack:
-    webpackConfig: ./webpack.config.js
-    includeModules: true

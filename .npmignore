@@ -14,3 +14,5 @@ webpack.config.js
 serverless.yml
 _config.yml
 jest.config.js
+coverage
+apidoc

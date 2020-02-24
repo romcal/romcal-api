@@ -8,11 +8,11 @@ module.exports = {
   context: __dirname,
   mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
   entry: {
-    'src/index': './src/index.ts'
+    'src/main': './src/main.ts'
   },
   devtool: slsw.lib.webpack.isLocal ? 'cheap-module-eval-source-map' : 'source-map',
   resolve: {
-    extensions: ['.mjs', '.json', '.ts'],
+    extensions: ['.json', '.ts'],
     symlinks: false,
     cacheWithContext: false,
   },
@@ -37,8 +37,7 @@ module.exports = {
           ],
         ],
         options: {
-          transpileOnly: true,
-          experimentalWatchApi: true,
+          transpileOnly: true
         },
       },
     ],
@@ -46,10 +45,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin({
-      eslint: true,
-      eslintOptions: {
-        cache: true
-      }
+      eslint: true
     })
   ],
 };
