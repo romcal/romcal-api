@@ -17,12 +17,12 @@ export class LocalesController {
   }
 
   /**
-   * @api {get} /locales All supported locales
+   * @api {get} /locales List all supported locales
    * @apiVersion 1.0.0
    * @apiName getAllLocales
    * @apiGroup Locales
    * @apiDescription
-   * Return the locale code of all supported locales by romcal.
+   * Get the locale codes of all supported locales by romcal.
    *
    * @apiSuccess {String[]} locales The list of all supported locales.
    *

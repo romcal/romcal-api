@@ -22,7 +22,7 @@
   - [As an Express middleware](#express-middleware)
   - [As an AWS Lambda (through the serverless framework)](#lambda)
 - [REST API](#rest-api):
-  - [Locales](#rest-api-celebrations)
+  - [Celebrations](#rest-api-celebrations)
   - [Calendars](#rest-api-calendars)
   - [Locales](#rest-api-locales)
   - [Version](#rest-api-version)
@@ -179,7 +179,7 @@ Below a list of the available APIs. Click on the corresponding links for more in
 
 ### <a name="rest-api-calendars"></a> Calendars
 
-#### → [All supported locales](https://romcal.github.io/romcal-api/#api-Calendars-getAllCalendars)
+#### → [List all calendars](https://romcal.github.io/romcal-api/#api-Calendars-getAllCalendars)
 
 > List the name of all calendars available from romcal.
 >
@@ -189,7 +189,7 @@ Below a list of the available APIs. Click on the corresponding links for more in
 
 ### <a name="rest-api-locales"></a> Locales
 
-#### → [All supported locales](https://romcal.github.io/romcal-api/#api-Locales-getAllLocales)
+#### → [List all supported locales](https://romcal.github.io/romcal-api/#api-Locales-getAllLocales)
 
 > Get the locale codes of all supported locales by romcal.
 >
