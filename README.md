@@ -1,7 +1,9 @@
 <p align="center">
-  <a href="https://github.com/romcal/romcal-api">
-    <img alt="babel" src="https://user-images.githubusercontent.com/1045997/74047293-62edd380-49d0-11ea-99bb-2e19b378985f.png" width="580">
-  </a>
+  <h1>
+    <a href="https://github.com/romcal/romcal-api">
+      <img alt="romcal-api" src="https://user-images.githubusercontent.com/1045997/75239832-a794af80-57c3-11ea-9e7d-380235ed8579.png">
+    </a>
+  </h1>
 </p>
 
 <p align="center">
