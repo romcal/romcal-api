@@ -257,6 +257,11 @@ $ npm run build
 
 Note: this step as well as tests are run automatically before releasing a new version to npmjs.org
 
+
+## Hosted/Live Examples
+Below are a list of publicly available APIs based on this project:
+  1. https://calendar.hymnal.com.ng/api/v1/calendars
+
 ## <a name="roadmap"></a> Roadmap (non-exclusive)
 
 - [ ] Get dates within a custom range: between 2 dates (civil or liturgical date), or 2 periods (the first day of the first period and the last day of the 2nd period)
